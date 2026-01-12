@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide Alpine.js elements until initialized */
 [x-cloak] {
     display: none;
+}
+
+/* Z-index hierarchy */
+@layer utilities {
+    .z-navigation {
+        z-index: 40;
+    }
+    .z-dropdown {
+        z-index: 50;
+    }
+    .z-modal {
+        z-index: 60;
+    }
+    .z-toast {
+        z-index: 70;
+    }
+}
+
+/* Prevent layout shift on hover */
+.hover-no-shift {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Smooth transitions */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix for dark mode flicker */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(17 24 39);
+    }
 }
