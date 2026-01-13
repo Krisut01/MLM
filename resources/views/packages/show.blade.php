@@ -341,6 +341,15 @@
                             </div>
                         </div>
 
+                        <!-- Test Connection Button -->
+                        <button onclick="testWalletConnection()"
+                                class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-base transition-all duration-300 mb-3 flex items-center justify-center border-2 border-blue-400 hover:border-blue-500">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Test Wallet Connection</span>
+                        </button>
+
                         <!-- Purchase Button -->
                         <button onclick="connectWalletAndPay({{ $package->id }}, {{ $package->price }})"
                                 id="payButton"
@@ -395,6 +404,65 @@
             } else {
                 showNotification('MetaMask not detected. Please install MetaMask to proceed.', 'error');
                 return false;
+            }
+        }
+
+        // Test wallet connection (no payment)
+        async function testWalletConnection() {
+            const button = event.target.closest('button');
+            const originalText = button.innerHTML;
+
+            try {
+                // Show loading state
+                button.innerHTML = `
+                    <svg class="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Connecting...</span>
+                `;
+                button.disabled = true;
+
+                // Initialize Web3
+                const web3Initialized = await initWeb3();
+                if (!web3Initialized) return;
+
+                // Connect wallet
+                const walletAddress = await connectWallet();
+                if (!walletAddress) return;
+
+                // Get network info
+                const networkId = await web3.eth.net.getId();
+                const networkName = getNetworkName(networkId);
+
+                // Get wallet balance
+                const balance = await web3.eth.getBalance(walletAddress);
+                const balanceEth = web3.utils.fromWei(balance, 'ether');
+
+                // Show success message
+                showNotification(`✅ Wallet Connected Successfully!\nAddress: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}\nNetwork: ${networkName}\nBalance: ${parseFloat(balanceEth).toFixed(4)} ETH`, 'success');
+
+                // Update button to show success
+                button.innerHTML = `
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-green-300">Connection Successful!</span>
+                `;
+
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 3000);
+
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                showNotification('Connection test failed. Please try again.', 'error');
+
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
             }
         }
 
@@ -545,6 +613,23 @@
                 button.disabled = false;
                 buttonText.textContent = `Connect Wallet & Pay $${packagePrice}`;
             }
+        }
+
+        // Get network name from chain ID
+        function getNetworkName(networkId) {
+            const networks = {
+                1: 'Ethereum Mainnet',
+                5: 'Ethereum Goerli (Testnet)',
+                11155111: 'Ethereum Sepolia (Testnet)',
+                137: 'Polygon Mainnet',
+                80001: 'Polygon Mumbai (Testnet)',
+                80002: 'Polygon Amoy (Testnet)',
+                56: 'BSC Mainnet',
+                97: 'BSC Testnet',
+                43114: 'Avalanche Mainnet',
+                43113: 'Avalanche Fuji (Testnet)'
+            };
+            return networks[networkId] || `Unknown Network (${networkId})`;
         }
 
         // Notification system
