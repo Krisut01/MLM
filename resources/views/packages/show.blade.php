@@ -479,11 +479,90 @@
             }
         }
 
+        // Network configurations
+        const networkConfig = {
+            // Polygon Mainnet
+            137: {
+                usdtContract: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F6',
+                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
+                name: 'Polygon Mainnet'
+            },
+            // Polygon Mumbai (Testnet)
+            80001: {
+                usdtContract: '0x3813e82e6f7098b9583FC0F3314f7c8d0bff3BDDB',
+                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
+                name: 'Polygon Mumbai Testnet'
+            },
+            // Ethereum Mainnet
+            1: {
+                usdtContract: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
+                name: 'Ethereum Mainnet'
+            },
+            // Ethereum Sepolia (Testnet)
+            11155111: {
+                usdtContract: '0x7169D38820dfd117C3FA1f22a697dBA58d90BA06',
+                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
+                name: 'Ethereum Sepolia Testnet'
+            }
+        };
+
+        // Switch to Polygon Mumbai testnet
+        async function switchToPolygonMumbai() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x13881' }],
+                });
+                return true;
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0x13881',
+                                chainName: 'Polygon Mumbai Testnet',
+                                nativeCurrency: {
+                                    name: 'MATIC',
+                                    symbol: 'MATIC',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://rpc-mumbai.maticvigil.com/'],
+                                blockExplorerUrls: ['https://mumbai.polygonscan.com/']
+                            }],
+                        });
+                        return true;
+                    } catch (addError) {
+                        console.error('Failed to add Polygon Mumbai network:', addError);
+                        return false;
+                    }
+                }
+                console.error('Failed to switch to Polygon Mumbai:', switchError);
+                return false;
+            }
+        }
+
+        // Get current network configuration
+        async function getCurrentNetworkConfig() {
+            try {
+                const networkId = await web3.eth.net.getId();
+                return networkConfig[networkId] || null;
+            } catch (error) {
+                console.error('Failed to get network config:', error);
+                return null;
+            }
+        }
+
         // Check USDT balance
         async function checkUSDTBalance(walletAddress) {
             try {
-                // USDT Contract Address (TRC20)
-                const usdtContractAddress = '0xa614f803B6FD780986A42c78Ec9c7f77e6DeD13C'; // Example - replace with actual
+                const config = await getCurrentNetworkConfig();
+                if (!config) {
+                    throw new Error('Unsupported network. Please switch to Polygon Mumbai or Ethereum Sepolia testnet.');
+                }
+
+                const usdtContractAddress = config.usdtContract;
 
                 // Minimal ABI for balanceOf function
                 const minABI = [
@@ -501,6 +580,7 @@
                 return web3.utils.fromWei(balance, 'mwei'); // USDT has 6 decimals
             } catch (error) {
                 console.error('Balance check failed:', error);
+                showNotification('Failed to check USDT balance. Please ensure you are on a supported network.', 'error');
                 return 0;
             }
         }
@@ -508,7 +588,13 @@
         // Send USDT payment
         async function sendUSDTPayment(toAddress, amount) {
             try {
-                const usdtContractAddress = '0xa614f803B6FD780986A42c78Ec9c7f77e6DeD13C'; // Example - replace with actual
+                const config = await getCurrentNetworkConfig();
+                if (!config) {
+                    throw new Error('Unsupported network. Please switch to Polygon Mumbai or Ethereum Sepolia testnet.');
+                }
+
+                const usdtContractAddress = config.usdtContract;
+                const companyWallet = config.companyWallet;
 
                 const usdtABI = [
                     {
@@ -552,6 +638,20 @@
                 const web3Initialized = await initWeb3();
                 if (!web3Initialized) return;
 
+                // Check network and switch if needed
+                buttonText.textContent = 'Checking Network...';
+                const config = await getCurrentNetworkConfig();
+                if (!config) {
+                    showNotification('Switching to Polygon Mumbai testnet...', 'info');
+                    const switched = await switchToPolygonMumbai();
+                    if (!switched) {
+                        showNotification('Please manually switch to Polygon Mumbai testnet in MetaMask.', 'error');
+                        return;
+                    }
+                    // Wait for network switch
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+
                 // Connect wallet
                 buttonText.textContent = 'Connecting Wallet...';
                 const wallet = await connectWallet();
@@ -576,7 +676,6 @@
 
                 // Process payment
                 buttonText.textContent = 'Processing Payment...';
-                const companyWallet = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'; // Replace with actual company wallet
 
                 const txHash = await sendUSDTPayment(companyWallet, packagePrice);
 
