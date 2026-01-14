@@ -7,8 +7,10 @@ use App\Models\Transaction;
 use App\Models\BinaryTree;
 use App\Models\FarmingLog;
 use App\Models\User;
+use App\Models\Batch;
 use App\Services\BinaryTreeService;
 use App\Services\CommissionService;
+use App\Services\QRCodeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,13 +19,14 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::where('is_active', true)->get();
+        $packages = Package::with('products')->where('is_active', true)->get();
 
         return view('packages.index', compact('packages'));
     }
 
     public function show(Package $package)
     {
+        $package->load('products');
         return view('packages.show', compact('package'));
     }
 
@@ -132,12 +135,27 @@ class PackageController extends Controller
                 'bonuses' => $pairingBonuses
             ]);
 
+            // Generate QR code batch data
+            $qrService = new QRCodeService();
+            $batchResult = $qrService->generateBatchData($package, $transaction, $user);
+
+            // Create batch record
+            $batch = Batch::create([
+                'batch_id' => $batchResult['batchId'],
+                'package_id' => $package->id,
+                'transaction_id' => $transaction->id,
+                'user_id' => $user->id,
+                'batch_data' => $batchResult['batchData'],
+                'status' => 'active'
+            ]);
+
             DB::commit();
 
-            Log::info('Package purchase completed', [
+            Log::info('Package purchase completed with QR batch', [
                 'user_id' => $user->id,
                 'package' => $package->name,
-                'tx_hash' => $request->tx_hash
+                'tx_hash' => $request->tx_hash,
+                'batch_id' => $batchResult['batchId']
             ]);
 
             return response()->json([
@@ -147,6 +165,8 @@ class PackageController extends Controller
                     'transaction_id' => $transaction->id,
                     'package' => $package->name,
                     'amount' => $package->price,
+                    'batch_id' => $batchResult['batchId'],
+                    'verification_url' => $batchResult['verificationUrl'],
                     'binary_tree' => [
                         'upline_id' => $binaryTree->upline_id,
                         'position' => $binaryTree->position

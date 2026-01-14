@@ -27,4 +27,14 @@ class Package extends Model
     {
         return $this->hasMany(FarmingLog::class);
     }
+
+    /**
+     * Get the products included in this package
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'package_product')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
 }

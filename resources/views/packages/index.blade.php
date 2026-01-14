@@ -125,7 +125,7 @@
                                     <span class="font-bold text-gray-900 dark:text-white">{{ $package->max_daily_pairs }}</span>
                                 </div>
 
-                                <div class="flex items-center justify-between py-3">
+                                <div class="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
                                     <div class="flex items-center">
                                         <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-3">
                                             <svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,6 +136,28 @@
                                     </div>
                                     <span class="font-bold text-emerald-600">${{ number_format($package->pairing_bonus, 2) }}</span>
                                 </div>
+
+                                <!-- Product Inclusions -->
+                                @if($package->products->count() > 0)
+                                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mr-3">
+                                            <svg class="w-4 h-4 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                            </svg>
+                                        </div>
+                                        <span class="text-gray-700 dark:text-gray-300 font-medium">Includes {{ $package->products->sum('pivot.quantity') }} Flower Teas</span>
+                                    </div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                                        @foreach($package->products->take(3) as $index => $product)
+                                            {{ $product->pivot->quantity }}x {{ $product->name }}@if(!$loop->last), @endif
+                                        @endforeach
+                                        @if($package->products->count() > 3)
+                                            + {{ $package->products->count() - 3 }} more
+                                        @endif
+                                    </div>
+                                </div>
+                                @endif
                             </div>
 
                             <!-- Action Buttons -->

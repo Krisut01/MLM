@@ -231,6 +231,69 @@
                         </div>
                     </div>
 
+                    <!-- Product Inclusions -->
+                    @if($package->products->count() > 0)
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                            <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                            🌿 Included Flower Tea Products
+                        </h3>
+
+                        <div class="mb-6 p-4 bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Included Products</div>
+                                    <div class="text-3xl font-bold text-emerald-600">{{ $package->products->sum('pivot.quantity') }} Flower Teas</div>
+                                </div>
+                                <div class="text-5xl">📦</div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            @foreach($package->products as $product)
+                            <a href="{{ route('products.show', $product->slug) }}" 
+                               class="group flex items-start p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors border border-gray-200 dark:border-gray-600 hover:border-emerald-300">
+                                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30 rounded-lg overflow-hidden mr-4">
+                                    <img src="{{ $product->image_url }}" 
+                                         alt="{{ $product->name }}" 
+                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-start justify-between mb-1">
+                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm line-clamp-1 group-hover:text-emerald-600">
+                                            {{ $product->name }}
+                                        </h4>
+                                        <span class="ml-2 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-full flex-shrink-0">
+                                            {{ $product->pivot->quantity }}x
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2 line-clamp-1">
+                                        {{ $product->category->icon }} {{ $product->category->name }}
+                                    </p>
+                                    <div class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                        ${{ number_format($product->price, 2) }} ea
+                                    </div>
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>
+
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                </svg>
+                                <div class="text-sm text-gray-700 dark:text-gray-300">
+                                    <strong>Note:</strong> All flower tea products are 100% organic and come with blockchain provenance tracking via QR code. Each product includes health benefits as listed in our product catalog. 
+                                    <a href="{{ route('products.index') }}" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold">Browse all products →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <!-- Earnings Projection -->
                     <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800">
                         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -479,33 +542,67 @@
             }
         }
 
-        // Network configurations
+        // 🌿 LEAFCHAIN NETWORK CONFIGURATIONS
+        // 🔧 UPDATE THESE ADDRESSES FOR PRODUCTION DEPLOYMENT
         const networkConfig = {
-            // Polygon Mainnet
-            137: {
-                usdtContract: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F6',
-                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
-                name: 'Polygon Mainnet'
+            // 🧪 LOCAL DEVELOPMENT (Hardhat)
+            31337: {
+                usdtContract: '{{ config("app.local_usdt_contract", "DEPLOY_YOUR_CONTRACT") }}',
+                companyWallet: '{{ config("app.company_wallet", "YOUR_WALLET_ADDRESS") }}',
+                name: 'Localhost 8545 (Development)',
+                rpcUrl: 'http://127.0.0.1:8545/',
+                chainId: '0x7A69'
             },
-            // Polygon Mumbai (Testnet)
+            // 🧪 POLYGON MUMBAI TESTNET (Deprecated - use Amoy)
             80001: {
                 usdtContract: '0x3813e82e6f7098b9583FC0F3314f7c8d0bff3BDDB',
-                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
-                name: 'Polygon Mumbai Testnet'
+                companyWallet: '{{ config("app.company_wallet", "0x1E634ce86b9dC049C022E26441eF21026061e3A3") }}',
+                name: 'Polygon Mumbai Testnet',
+                rpcUrl: 'https://rpc-mumbai.maticvigil.com/',
+                chainId: '0x13881'
             },
-            // Ethereum Mainnet
-            1: {
-                usdtContract: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
-                name: 'Ethereum Mainnet'
+            // 🧪 POLYGON AMOY TESTNET (Current Testnet - Recommended)
+            80002: {
+                usdtContract: '{{ config("app.amoy_usdt_contract", "DEPLOY_USDT_CONTRACT_ON_AMOY") }}',
+                companyWallet: '{{ config("app.company_wallet", "0x1E634ce86b9dC049C022E26441eF21026061e3A3") }}',
+                name: 'Polygon Amoy Testnet',
+                rpcUrl: 'https://rpc-amoy.polygon.technology/',
+                chainId: '0x13882'
             },
-            // Ethereum Sepolia (Testnet)
+            // 🟢 POLYGON MAINNET (Production)
+            137: {
+                usdtContract: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F6',
+                companyWallet: '{{ config("app.company_wallet", "UPDATE_FOR_PRODUCTION") }}',
+                name: 'Polygon Mainnet',
+                rpcUrl: 'https://polygon-rpc.com/',
+                chainId: '0x89'
+            },
+            // 🧪 ETHEREUM SEPOLIA TESTNET
             11155111: {
                 usdtContract: '0x7169D38820dfd117C3FA1f22a697dBA58d90BA06',
-                companyWallet: '0x1E634ce86b9dC049C022E26441eF21026061e3A3',
-                name: 'Ethereum Sepolia Testnet'
+                companyWallet: '{{ config("app.company_wallet", "0x1E634ce86b9dC049C022E26441eF21026061e3A3") }}',
+                name: 'Ethereum Sepolia Testnet',
+                rpcUrl: 'https://sepolia.infura.io/v3/YOUR_INFURA_KEY',
+                chainId: '0xaa36a7'
+            },
+            // 🟢 ETHEREUM MAINNET (Production)
+            1: {
+                usdtContract: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+                companyWallet: '{{ config("app.company_wallet", "UPDATE_FOR_PRODUCTION") }}',
+                name: 'Ethereum Mainnet',
+                rpcUrl: 'https://mainnet.infura.io/v3/YOUR_INFURA_KEY',
+                chainId: '0x1'
             }
         };
+
+        // 🌐 CURRENT NETWORK SELECTION
+        // Change this to switch between networks
+        const CURRENT_NETWORK = '{{ config("app.blockchain_network", "amoy") }}';
+        const TARGET_CHAIN_ID = CURRENT_NETWORK === 'local' ? '0x7A69' :
+                               CURRENT_NETWORK === 'mumbai' ? '0x13881' :
+                               CURRENT_NETWORK === 'amoy' ? '0x13882' :
+                               CURRENT_NETWORK === 'polygon' ? '0x89' :
+                               CURRENT_NETWORK === 'sepolia' ? '0xaa36a7' : '0x1';
 
         // Switch to Polygon Mumbai testnet
         async function switchToPolygonMumbai() {
@@ -539,6 +636,42 @@
                     }
                 }
                 console.error('Failed to switch to Polygon Mumbai:', switchError);
+                return false;
+            }
+        }
+
+        // Switch to Polygon Amoy testnet (Current Recommended Testnet)
+        async function switchToPolygonAmoy() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x13882' }],
+                });
+                return true;
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0x13882',
+                                chainName: 'Polygon Amoy Testnet',
+                                nativeCurrency: {
+                                    name: 'POL',
+                                    symbol: 'POL',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://rpc-amoy.polygon.technology/'],
+                                blockExplorerUrls: ['https://amoy.polygonscan.com/']
+                            }],
+                        });
+                        return true;
+                    } catch (addError) {
+                        console.error('Failed to add Polygon Amoy network:', addError);
+                        return false;
+                    }
+                }
+                console.error('Failed to switch to Polygon Amoy:', switchError);
                 return false;
             }
         }
@@ -697,11 +830,14 @@
                 const result = await response.json();
 
                 if (result.success) {
+                    // Show QR code success modal
+                    showQRSuccessModal(result.data);
                     showNotification('Payment successful! Your package has been activated.', 'success');
                     buttonText.textContent = 'Payment Successful!';
+                    // Don't redirect immediately - let user see QR code
                     setTimeout(() => {
                         window.location.href = '/dashboard';
-                    }, 2000);
+                    }, 10000); // Give 10 seconds to see QR code
                 } else {
                     showNotification('Payment verification failed. Please contact support.', 'error');
                 }
@@ -729,6 +865,129 @@
                 43113: 'Avalanche Fuji (Testnet)'
             };
             return networks[networkId] || `Unknown Network (${networkId})`;
+        }
+
+        // QR Success Modal
+        function showQRSuccessModal(data) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-50 overflow-y-auto';
+            modal.innerHTML = `
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                    </div>
+                    <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                                        🎉 Payment Successful!
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                            Your purchase has been verified on the blockchain. Here's your batch verification QR code:
+                                        </p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                            <div id="qrCodeContainer" class="text-center">
+                                                <!-- QR Code will be generated here -->
+                                                <div class="animate-pulse">
+                                                    <div class="h-48 w-48 bg-gray-300 dark:bg-gray-600 rounded mx-auto"></div>
+                                                    <p class="mt-2 text-sm text-gray-500">Generating QR Code...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                                            <p><strong>Batch ID:</strong> <span id="batchId">${data.batch_id}</span></p>
+                                            <p class="mt-1">Keep this QR code as proof of your authentic LeafChain purchase.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <a href="${data.verification_url}"
+                               target="_blank"
+                               class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                View Verification Page
+                            </a>
+                            <button type="button"
+                                    onclick="this.closest('.fixed').remove()"
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Generate QR code after modal is shown
+            setTimeout(() => {
+                generateQRCodeForModal(data);
+            }, 500);
+        }
+
+        // Generate QR code for the modal
+        async function generateQRCodeForModal(data) {
+            try {
+                // QR code data
+                const qrData = {
+                    batchId: data.batch_id,
+                    packageType: data.package,
+                    purchaseId: data.transaction_id,
+                    verificationUrl: data.verification_url,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Use qrcode library (assuming it's loaded)
+                if (typeof QRCode !== 'undefined') {
+                    const qrContainer = document.getElementById('qrCodeContainer');
+                    qrContainer.innerHTML = ''; // Clear loading
+
+                    // Generate QR code
+                    new QRCode(qrContainer, {
+                        text: JSON.stringify(qrData),
+                        width: 192,
+                        height: 192,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+
+                    // Add download button
+                    const downloadBtn = document.createElement('a');
+                    downloadBtn.href = data.verification_url + '/download';
+                    downloadBtn.className = 'mt-3 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:text-blue-300 dark:bg-blue-900 dark:hover:bg-blue-800';
+                    downloadBtn.innerHTML = 'Download QR Code';
+                    qrContainer.appendChild(downloadBtn);
+                } else {
+                    // Fallback if QRCode library not loaded
+                    document.getElementById('qrCodeContainer').innerHTML = `
+                        <div class="text-center p-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">QR Code Generated Successfully!</p>
+                            <p class="text-xs text-gray-500">Visit the verification page to see your QR code.</p>
+                            <a href="${data.verification_url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Verification Page →</a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('QR code generation failed:', error);
+                document.getElementById('qrCodeContainer').innerHTML = `
+                    <div class="text-center p-4">
+                        <p class="text-sm text-red-600 dark:text-red-400">QR Code generation failed</p>
+                        <p class="text-xs text-gray-500">But your purchase was successful!</p>
+                        <a href="${data.verification_url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Verification Page →</a>
+                    </div>
+                `;
+            }
         }
 
         // Notification system
@@ -783,4 +1042,7 @@
 
     <!-- Load Web3.js -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+
+    <!-- Load QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </x-app-layout>
