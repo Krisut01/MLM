@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // Starter, Bronze, Gold, Mobile
             $table->decimal('price', 10, 2); // 50.00, 100.00, 320.00, 2000.00
-            $table->integer('points'); // 1, 3, 10, 62
+            $table->integer('points'); // 1, 2, 6, 62
             $table->integer('max_daily_pairs'); // 12, 18, 36, 96
             $table->decimal('pairing_bonus', 8, 2); // 3.75, 7.20, 21.00, 150.00
             $table->boolean('is_active')->default(true);

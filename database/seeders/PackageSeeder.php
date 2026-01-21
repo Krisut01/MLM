@@ -24,7 +24,7 @@ class PackageSeeder extends Seeder
             [
                 'name' => 'Bronze',
                 'price' => 100.00,
-                'points' => 3,
+                'points' => 2,
                 'max_daily_pairs' => 18,
                 'pairing_bonus' => 7.20,
                 'is_active' => true,
@@ -34,7 +34,7 @@ class PackageSeeder extends Seeder
             [
                 'name' => 'Gold',
                 'price' => 320.00,
-                'points' => 10,
+                'points' => 6,
                 'max_daily_pairs' => 36,
                 'pairing_bonus' => 21.00,
                 'is_active' => true,

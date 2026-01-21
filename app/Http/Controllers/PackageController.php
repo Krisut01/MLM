@@ -113,7 +113,7 @@ class PackageController extends Controller
             // ⭐ NEW: Use CommissionService to process bonuses
             $commissionService = new CommissionService();
             
-            // Process direct referral bonus (10%)
+            // Process direct referral bonus (5% per binaryextacted.md package table)
             if ($user->sponsor_id) {
                 $directBonus = $commissionService->processDirectReferralBonus(
                     $user->sponsor_id, 
@@ -172,7 +172,7 @@ class PackageController extends Controller
                         'position' => $binaryTree->position
                     ],
                     'bonuses' => [
-                        'direct_referral' => $user->sponsor_id ? ($package->price * 0.10) : 0,
+                        'direct_referral' => $user->sponsor_id ? ($package->price * 0.05) : 0,
                         'pairing_bonuses_count' => count($pairingBonuses)
                     ]
                 ]

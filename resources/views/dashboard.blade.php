@@ -13,7 +13,7 @@
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="mb-4 md:mb-0">
                         <h3 class="text-white font-bold text-lg mb-2">📢 Your Referral Link</h3>
-                        <p class="text-emerald-100 text-sm">Share this link to earn 10% direct referral bonuses!</p>
+                        <p class="text-emerald-100 text-sm">Share this link to earn 5% direct referral bonuses!</p>
                     </div>
                     <div class="flex-1 md:ml-6 w-full md:max-w-md">
                         <div class="flex">

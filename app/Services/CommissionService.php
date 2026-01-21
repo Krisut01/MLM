@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
  * Commission Service
  * 
  * Handles all commission calculations:
- * - Direct referral bonus (10%)
+ * - Direct referral bonus (5%)
  * - Pairing bonus (binary matching)
  * - Leadership bonus (unilevel)
  * 
@@ -26,13 +26,13 @@ class CommissionService
     /**
      * Process direct referral bonus
      * 
-     * When a user purchases a package, their sponsor gets 10% direct bonus
+     * When a user purchases a package, their sponsor gets a direct bonus.
      * 
      * From binaryextracted.md:
-     * - Starter: $2.50 (10% of $50)
-     * - Bronze: $5.00 (10% of $100)
-     * - Gold: $16.00 (10% of $320)
-     * - Mobile: $100.00 (10% of $2000)
+     * - Starter: $2.50 (5% of $50)
+     * - Bronze: $5.00 (5% of $100)
+     * - Gold: $16.00 (5% of $320)
+     * - Mobile: $100.00 (5% of $2000)
      *
      * @param int $sponsorId
      * @param float $packagePrice
@@ -44,7 +44,8 @@ class CommissionService
             return null;
         }
         
-        $bonusAmount = $packagePrice * 0.10; // 10% direct bonus
+        // Per binaryextacted.md package table, this aligns to 5% of package price.
+        $bonusAmount = $packagePrice * 0.05; // 5% direct bonus
         
         $transaction = Transaction::create([
             'user_id' => $sponsorId,
@@ -52,10 +53,10 @@ class CommissionService
             'amount' => $bonusAmount,
             'currency' => 'USD',
             'status' => 'completed',
-            'description' => "Direct referral bonus (10% of $" . number_format($packagePrice, 2) . ")",
+            'description' => "Direct referral bonus (5% of $" . number_format($packagePrice, 2) . ")",
             'metadata' => [
                 'package_price' => $packagePrice,
-                'percentage' => 10
+                'percentage' => 5
             ]
         ]);
         

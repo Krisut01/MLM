@@ -41,7 +41,7 @@ class TestUsersSeeder extends Seeder
 
         // Get packages
         $starterPackage = Package::where('name', 'Starter')->first();  // $50, 1 point
-        $bronzePackage = Package::where('name', 'Bronze')->first();   // $100, 3 points
+        $bronzePackage = Package::where('name', 'Bronze')->first();   // $100, 2 points
 
         // Create Root User (No Sponsor)
         $root = User::create([
