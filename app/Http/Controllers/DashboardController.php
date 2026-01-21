@@ -16,7 +16,7 @@ class DashboardController extends Controller
         
         // Get user's statistics
         $totalEarnings = Transaction::where('user_id', $user->id)
-            ->whereIn('type', ['referral_bonus', 'pairing_bonus', 'farming_reward'])
+            ->whereIn('type', ['referral_bonus', 'royalty_bonus', 'pairing_bonus', 'farming_reward'])
             ->where('status', 'completed')
             ->sum('amount');
             

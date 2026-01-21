@@ -15,12 +15,14 @@ class Package extends Model
         'points',
         'max_daily_pairs',
         'pairing_bonus',
+        'royalty_bonus',
         'is_active',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'pairing_bonus' => 'decimal:2',
+        'royalty_bonus' => 'decimal:2',
     ];
 
     public function farmingLogs()

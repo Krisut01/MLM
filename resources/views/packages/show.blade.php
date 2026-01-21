@@ -210,6 +210,10 @@
                                     <span class="text-gray-600 dark:text-gray-400 font-medium">Pairing Bonus Rate</span>
                                     <span class="text-2xl font-bold text-emerald-600">${{ number_format($package->pairing_bonus, 2) }}</span>
                                 </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Royalty Bonus</span>
+                                    <span class="text-2xl font-bold text-purple-600">${{ number_format($package->royalty_bonus ?? 0, 2) }}</span>
+                                </div>
                             </div>
 
                             <div class="space-y-4">

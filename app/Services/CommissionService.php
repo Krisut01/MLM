@@ -24,6 +24,59 @@ use Illuminate\Support\Facades\Log;
 class CommissionService
 {
     /**
+     * Process royalty bonus
+     *
+     * From details/binaryextacted.md (fixed per package tier):
+     * - Starter: $0.90
+     * - Bronze: $2.40
+     * - Gold: $7.20
+     * - Mobile: $65.00
+     *
+     * NOTE: The document does not fully define who receives "royalty".
+     * For now, we credit it to the immediate sponsor (same recipient as direct referral),
+     * which matches the existing sponsor-based payout pipeline.
+     *
+     * @param int|null $sponsorId
+     * @param Package $package
+     * @param int $fromUserId
+     * @return Transaction|null
+     */
+    public function processRoyaltyBonus($sponsorId, Package $package, $fromUserId)
+    {
+        if (!$sponsorId) {
+            return null;
+        }
+
+        $amount = (float) ($package->royalty_bonus ?? 0);
+        if ($amount <= 0) {
+            return null;
+        }
+
+        $transaction = Transaction::create([
+            'user_id' => $sponsorId,
+            'type' => 'royalty_bonus',
+            'amount' => $amount,
+            'currency' => 'USD',
+            'status' => 'completed',
+            'description' => "Royalty bonus for {$package->name} package purchase",
+            'metadata' => [
+                'package_id' => $package->id,
+                'package_name' => $package->name,
+                'from_user' => $fromUserId,
+            ],
+        ]);
+
+        Log::info('Royalty bonus credited', [
+            'sponsor_id' => $sponsorId,
+            'from_user' => $fromUserId,
+            'package_id' => $package->id,
+            'amount' => $amount,
+        ]);
+
+        return $transaction;
+    }
+
+    /**
      * Process direct referral bonus
      * 
      * When a user purchases a package, their sponsor gets a direct bonus.

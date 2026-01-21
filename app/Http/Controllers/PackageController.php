@@ -125,6 +125,13 @@ class PackageController extends Controller
                     'amount' => $directBonus ? $directBonus->amount : 0
                 ]);
             }
+
+            // Process royalty bonus (fixed amount per package tier from binaryextacted.md)
+            $royaltyBonus = $commissionService->processRoyaltyBonus(
+                $user->sponsor_id,
+                $package,
+                $user->id
+            );
             
             // Process pairing bonuses for all uplines
             $pairingBonuses = $commissionService->processPairingBonuses($user->id);
@@ -173,6 +180,7 @@ class PackageController extends Controller
                     ],
                     'bonuses' => [
                         'direct_referral' => $user->sponsor_id ? ($package->price * 0.05) : 0,
+                        'royalty_bonus' => $royaltyBonus ? $royaltyBonus->amount : 0,
                         'pairing_bonuses_count' => count($pairingBonuses)
                     ]
                 ]
