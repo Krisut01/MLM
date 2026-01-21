@@ -69,6 +69,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | LeafChain - Dev Simulation Flags
+    |--------------------------------------------------------------------------
+    |
+    | Enable simulated package purchases (no real USDT required). Intended for
+    | local/dev testing only.
+    |
+    */
+    'simulate_purchases' => env('APP_SIMULATE_PURCHASES', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

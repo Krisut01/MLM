@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/packages', [PackageController::class, 'index'])->name('packages');
     Route::get('/packages/{package}', [PackageController::class, 'show'])->name('packages.show');
     Route::post('/packages/purchase', [PackageController::class, 'purchase'])->name('packages.purchase');
+    Route::post('/packages/simulate-purchase', [PackageController::class, 'simulatePurchase'])->name('packages.simulate.purchase');
     
     // Phase 2: Product Marketplace
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');

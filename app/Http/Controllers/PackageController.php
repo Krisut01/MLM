@@ -14,6 +14,7 @@ use App\Services\QRCodeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PackageController extends Controller
 {
@@ -38,11 +39,63 @@ class PackageController extends Controller
             'wallet_address' => 'required|string'
         ]);
 
-        DB::beginTransaction();
         try {
             $user = auth()->user();
             $package = Package::findOrFail($request->package_id);
 
+            return $this->processPackagePurchase(
+                $user,
+                $package,
+                $request->tx_hash,
+                $request->wallet_address,
+                false
+            );
+
+        } catch (\Exception $e) {
+            Log::error('Package purchase failed', [
+                'user_id' => auth()->id(),
+                'package_id' => $request->package_id,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Purchase failed. Please try again or contact support.'
+            ], 500);
+        }
+    }
+
+    /**
+     * Simulated purchase endpoint (no real USDT required)
+     */
+    public function simulatePurchase(Request $request)
+    {
+        if (!config('app.simulate_purchases')) {
+            abort(403, 'Simulated purchases are disabled.');
+        }
+
+        $request->validate([
+            'package_id' => 'required|exists:packages,id',
+        ]);
+
+        $user = auth()->user();
+        $package = Package::findOrFail($request->package_id);
+
+        // Use existing wallet if present; otherwise a deterministic fake one for UI/testing.
+        $wallet = $user->wallet_address ?: '0x' . substr(hash('sha256', (string) $user->email), 0, 40);
+        $txHash = 'SIM-' . Str::uuid()->toString();
+
+        return $this->processPackagePurchase($user, $package, $txHash, $wallet, true);
+    }
+
+    /**
+     * Shared purchase pipeline used by real and simulated purchases.
+     */
+    private function processPackagePurchase($user, Package $package, string $txHash, string $walletAddress, bool $isSimulated)
+    {
+        DB::beginTransaction();
+
+        try {
             // Check if user already has an active package (upgrade path)
             $existingFarming = FarmingLog::where('user_id', $user->id)
                 ->where('status', 'active')
@@ -51,6 +104,7 @@ class PackageController extends Controller
             if ($existingFarming) {
                 // Upgrade only if new package price is higher
                 if ($package->price <= $existingFarming->package_value) {
+                    DB::rollBack();
                     return response()->json([
                         'success' => false,
                         'message' => 'Upgrade requires a higher package than your active one.'
@@ -64,24 +118,26 @@ class PackageController extends Controller
                 ]);
             }
 
-            // Verify transaction on blockchain (simplified for demo)
-            $isValidTx = $this->verifyTransaction($request->tx_hash, $request->wallet_address, $package->price);
+            // Verify transaction on blockchain (skipped in simulation mode)
+            if (!$isSimulated) {
+                $isValidTx = $this->verifyTransaction($txHash, $walletAddress, $package->price);
+                if (!$isValidTx) {
+                    Log::warning('Invalid transaction attempt', [
+                        'user_id' => $user->id,
+                        'tx_hash' => $txHash,
+                        'wallet' => $walletAddress
+                    ]);
 
-            if (!$isValidTx) {
-                Log::warning('Invalid transaction attempt', [
-                    'user_id' => $user->id,
-                    'tx_hash' => $request->tx_hash,
-                    'wallet' => $request->wallet_address
-                ]);
-
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Transaction verification failed. Please contact support.'
-                ]);
+                    DB::rollBack();
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Transaction verification failed. Please contact support.'
+                    ]);
+                }
             }
 
             // Update user wallet address
-            $user->update(['wallet_address' => $request->wallet_address]);
+            $user->update(['wallet_address' => $walletAddress]);
 
             // Create transaction record
             $transaction = Transaction::create([
@@ -90,11 +146,14 @@ class PackageController extends Controller
                 'amount' => $package->price,
                 'currency' => 'USDT',
                 'status' => 'completed',
-                'description' => "Purchased {$package->name} Package",
+                'description' => $isSimulated
+                    ? "Simulated purchase: {$package->name} Package"
+                    : "Purchased {$package->name} Package",
                 'metadata' => [
-                    'tx_hash' => $request->tx_hash,
-                    'wallet_address' => $request->wallet_address,
-                    'package_id' => $package->id
+                    'tx_hash' => $txHash,
+                    'wallet_address' => $walletAddress,
+                    'package_id' => $package->id,
+                    'simulated' => $isSimulated,
                 ]
             ]);
 
@@ -108,71 +167,40 @@ class PackageController extends Controller
                 'status' => 'active'
             ]);
 
-            // ⭐ NEW: Use BinaryTreeService to place user in tree (or update volumes on upgrade)
+            // Place user in tree (or update volumes on upgrade)
             $binaryService = new BinaryTreeService();
             $existingTree = BinaryTree::where('user_id', $user->id)->first();
             $binaryTree = $existingTree;
 
             if (!$existingTree) {
                 $binaryTree = $binaryService->placeUser($user, $package);
-                
-                Log::info('User placed in binary tree', [
-                    'user_id' => $user->id,
-                    'binary_tree_id' => $binaryTree->id,
-                    'upline_id' => $binaryTree->upline_id,
-                    'position' => $binaryTree->position
-                ]);
             } else {
-                // Upgrade: add only the delta points to uplines
                 $existingPackagePoints = optional($existingFarming?->package)->points ?? 0;
                 $deltaPoints = max(0, $package->points - $existingPackagePoints);
                 if ($deltaPoints > 0) {
                     $binaryService->updateUplineVolumes($user->id, $deltaPoints);
-                    Log::info('Upgrade: updated upline volumes with delta points', [
-                        'user_id' => $user->id,
-                        'delta_points' => $deltaPoints
-                    ]);
                 }
             }
 
-            // ⭐ NEW: Use CommissionService to process bonuses
+            // Commissions
             $commissionService = new CommissionService();
-            
-            // Process direct referral bonus (5% per binaryextacted.md package table)
             if ($user->sponsor_id) {
-                $directBonus = $commissionService->processDirectReferralBonus(
-                    $user->sponsor_id, 
-                    $package->price
-                );
-                
-                Log::info('Direct referral bonus processed', [
-                    'sponsor_id' => $user->sponsor_id,
-                    'amount' => $directBonus ? $directBonus->amount : 0
-                ]);
+                $commissionService->processDirectReferralBonus($user->sponsor_id, $package->price);
             }
 
-            // Process royalty bonus (fixed amount per package tier from binaryextacted.md)
             $royaltyBonus = $commissionService->processRoyaltyBonus(
                 $user->sponsor_id,
                 $package,
                 $user->id
             );
-            
-            // Process pairing bonuses for all uplines
-            $pairingBonuses = $commissionService->processPairingBonuses($user->id);
-            
-            Log::info('Pairing bonuses processed', [
-                'user_id' => $user->id,
-                'bonuses_count' => count($pairingBonuses),
-                'bonuses' => $pairingBonuses
-            ]);
 
-            // Generate QR code batch data
+            $pairingBonuses = $commissionService->processPairingBonuses($user->id);
+
+            // QR batch
             $qrService = new QRCodeService();
             $batchResult = $qrService->generateBatchData($package, $transaction, $user);
 
-            // Create batch record
-            $batch = Batch::create([
+            Batch::create([
                 'batch_id' => $batchResult['batchId'],
                 'package_id' => $package->id,
                 'transaction_id' => $transaction->id,
@@ -183,25 +211,20 @@ class PackageController extends Controller
 
             DB::commit();
 
-            Log::info('Package purchase completed with QR batch', [
-                'user_id' => $user->id,
-                'package' => $package->name,
-                'tx_hash' => $request->tx_hash,
-                'batch_id' => $batchResult['batchId']
-            ]);
-
             return response()->json([
                 'success' => true,
-                'message' => 'Package purchased successfully!',
+                'message' => $isSimulated ? 'Simulated purchase completed!' : 'Package purchased successfully!',
                 'data' => [
+                    'simulated' => $isSimulated,
                     'transaction_id' => $transaction->id,
                     'package' => $package->name,
                     'amount' => $package->price,
+                    'tx_hash' => $txHash,
                     'batch_id' => $batchResult['batchId'],
                     'verification_url' => $batchResult['verificationUrl'],
                     'binary_tree' => [
-                        'upline_id' => $binaryTree->upline_id,
-                        'position' => $binaryTree->position
+                        'upline_id' => $binaryTree?->upline_id,
+                        'position' => $binaryTree?->position
                     ],
                     'bonuses' => [
                         'direct_referral' => $user->sponsor_id ? ($package->price * 0.05) : 0,
@@ -218,19 +241,9 @@ class PackageController extends Controller
                     ]
                 ]
             ]);
-
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
-            Log::error('Package purchase failed', [
-                'user_id' => auth()->id(),
-                'package_id' => $request->package_id,
-                'error' => $e->getMessage()
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Purchase failed. Please try again or contact support.'
-            ], 500);
+            throw $e;
         }
     }
 
@@ -246,7 +259,8 @@ class PackageController extends Controller
         try {
             // Simulate blockchain verification
             // In real implementation, use web3.php or similar
-            if (strlen($txHash) < 64) {
+            // Accept simulated hashes only in simulation mode (handled earlier).
+            if (!str_starts_with($txHash, 'SIM-') && strlen($txHash) < 64) {
                 return false;
             }
 

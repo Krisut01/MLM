@@ -451,6 +451,19 @@
                             <span id="buttonText">Connect Wallet & Pay ${{ number_format($package->price, 2) }}</span>
                         </button>
 
+                        @if (config('app.simulate_purchases'))
+                            <button onclick="simulatePurchase({{ $package->id }})"
+                                    class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl text-base transition-all duration-300 mb-4 flex items-center justify-center border border-purple-400/40">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                <span>Simulate Purchase (Dev)</span>
+                            </button>
+                            <p class="text-xs text-purple-600/90 dark:text-purple-300 -mt-2 mb-4 text-center">
+                                Dev mode enabled: no real USDT is required. This will still create transactions, activate farming, and process commissions.
+                            </p>
+                        @endif
+
                         <!-- Terms -->
                         <div class="text-center">
                             <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -486,6 +499,7 @@
     <script>
         let userWallet = null;
         let web3 = null;
+        const simulatePurchasesEnabled = {{ config('app.simulate_purchases') ? 'true' : 'false' }};
 
         // Initialize Web3 and check for MetaMask
         async function initWeb3() {
@@ -875,6 +889,43 @@
                 showNotification('Payment failed. Please try again.', 'error');
                 button.disabled = false;
                 buttonText.textContent = `Connect Wallet & Pay $${packagePrice}`;
+            }
+        }
+
+        async function simulatePurchase(packageId) {
+            if (!simulatePurchasesEnabled) {
+                showNotification('Simulation is disabled. Set APP_SIMULATE_PURCHASES=true in .env', 'error');
+                return;
+            }
+
+            try {
+                const confirmed = confirm('Simulate this package purchase? This will activate farming, binary placement, and commissions without real USDT.');
+                if (!confirmed) return;
+
+                const response = await fetch('{{ route('packages.simulate.purchase') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ package_id: packageId }),
+                });
+
+                const result = await response.json();
+                if (!response.ok || !result.success) {
+                    showNotification(result.message || 'Simulation failed.', 'error');
+                    return;
+                }
+
+                showNotification(`✅ Simulated purchase completed!\nPackage: ${result.data.package}\nBatch: ${result.data.batch_id}`, 'success');
+                showQRSuccessModal(result.data);
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 5000);
+            } catch (e) {
+                console.error(e);
+                showNotification('Simulation failed due to a network error.', 'error');
             }
         }
 
