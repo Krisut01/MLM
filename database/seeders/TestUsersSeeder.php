@@ -51,6 +51,7 @@ class TestUsersSeeder extends Seeder
             'sponsor_id' => null,
             'wallet_address' => '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
             'is_active' => true,
+            'is_admin' => true,
             'email_verified_at' => now(),
         ]);
 

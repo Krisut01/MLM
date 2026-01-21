@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\BinaryTree;
-use App\Models\User;
 use App\Models\Transaction;
 use App\Models\Package;
 use App\Models\FarmingLog;

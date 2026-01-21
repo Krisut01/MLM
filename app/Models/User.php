@@ -25,6 +25,7 @@ class User extends Authenticatable
         'wallet_address',
         'phone',
         'is_active',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -43,6 +44,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
+            'is_admin' => 'boolean',
         ];
     }
 

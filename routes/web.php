@@ -9,14 +9,12 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FarmingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\LandingPageController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+Route::view('/terms', 'terms')->name('terms.show');
+Route::view('/privacy', 'policy')->name('policy.show');
 
-
-
-//redirect()->route('welcome');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
@@ -43,8 +41,20 @@ Route::get('/verify/{batchId}/download', [VerificationController::class, 'downlo
 Route::get('/api/verify/{batchId}', [VerificationController::class, 'verify'])->name('api.verify.batch');
 
 // Admin routes
-Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'can:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/transactions', [AdminController::class, 'transactions'])->name('admin.transactions');
+
+    // Landing page CMS
+    Route::get('/landing', [AdminController::class, 'landing'])->name('admin.landing');
+    Route::post('/landing', [AdminController::class, 'updateLanding'])->name('admin.landing.update');
+
+    // Testimonials
+    Route::get('/testimonials', [AdminController::class, 'testimonials'])->name('admin.testimonials');
+    Route::get('/testimonials/create', [AdminController::class, 'createTestimonial'])->name('admin.testimonials.create');
+    Route::post('/testimonials', [AdminController::class, 'storeTestimonial'])->name('admin.testimonials.store');
+    Route::get('/testimonials/{testimonial}/edit', [AdminController::class, 'editTestimonial'])->name('admin.testimonials.edit');
+    Route::post('/testimonials/{testimonial}', [AdminController::class, 'updateTestimonial'])->name('admin.testimonials.update');
+    Route::post('/testimonials/{testimonial}/delete', [AdminController::class, 'deleteTestimonial'])->name('admin.testimonials.delete');
 });

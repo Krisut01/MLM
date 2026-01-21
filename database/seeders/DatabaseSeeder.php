@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // Phase 1: MLM Packages
             PackageSeeder::class,           // ⭐ Creates MLM packages FIRST
+            LandingPageSeeder::class,       // 🧩 Landing page CMS defaults (RWA + hero)
             
             // Phase 2: Product Catalog
             ProductCategorySeeder::class,   // 🌿 Creates product categories
