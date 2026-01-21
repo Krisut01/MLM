@@ -214,6 +214,30 @@
                                     <span class="text-gray-600 dark:text-gray-400 font-medium">Royalty Bonus</span>
                                     <span class="text-2xl font-bold text-purple-600">${{ number_format($package->royalty_bonus ?? 0, 2) }}</span>
                                 </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Buy Basket (Digital)</span>
+                                    <span class="text-lg font-semibold text-blue-600">
+                                        {{ $package->buy_basket_percent }}% / ${{ number_format($package->buy_basket_cost, 2) }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Basket Capacity</span>
+                                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($package->basket_capacity) }}</span>
+                                </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Harvest Multiplier</span>
+                                    <span class="text-lg font-semibold text-emerald-600">x{{ number_format($package->harvest_multiplier, 1) }}</span>
+                                </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Farming Load</span>
+                                    <span class="text-lg font-semibold text-amber-600">${{ number_format($package->farming_load_amount, 2) }}</span>
+                                </div>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">LeafX Tokens Loaded</span>
+                                    <span class="text-lg font-semibold text-indigo-600">
+                                        {{ number_format($package->leafx_tokens_loaded, 2) }} (at ${{ number_format($package->leafx_token_value, 2) }} each)
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="space-y-4">

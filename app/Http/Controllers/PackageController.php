@@ -43,15 +43,24 @@ class PackageController extends Controller
             $user = auth()->user();
             $package = Package::findOrFail($request->package_id);
 
-            // Check if user already has an active package
+            // Check if user already has an active package (upgrade path)
             $existingFarming = FarmingLog::where('user_id', $user->id)
                 ->where('status', 'active')
                 ->first();
 
             if ($existingFarming) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You already have an active farming package.'
+                // Upgrade only if new package price is higher
+                if ($package->price <= $existingFarming->package_value) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Upgrade requires a higher package than your active one.'
+                    ]);
+                }
+
+                // Mark old farming as completed (upgrade path)
+                $existingFarming->update([
+                    'status' => 'completed',
+                    'last_reward_at' => now(),
                 ]);
             }
 
@@ -99,16 +108,32 @@ class PackageController extends Controller
                 'status' => 'active'
             ]);
 
-            // ⭐ NEW: Use BinaryTreeService to place user in tree
+            // ⭐ NEW: Use BinaryTreeService to place user in tree (or update volumes on upgrade)
             $binaryService = new BinaryTreeService();
-            $binaryTree = $binaryService->placeUser($user, $package);
-            
-            Log::info('User placed in binary tree', [
-                'user_id' => $user->id,
-                'binary_tree_id' => $binaryTree->id,
-                'upline_id' => $binaryTree->upline_id,
-                'position' => $binaryTree->position
-            ]);
+            $existingTree = BinaryTree::where('user_id', $user->id)->first();
+            $binaryTree = $existingTree;
+
+            if (!$existingTree) {
+                $binaryTree = $binaryService->placeUser($user, $package);
+                
+                Log::info('User placed in binary tree', [
+                    'user_id' => $user->id,
+                    'binary_tree_id' => $binaryTree->id,
+                    'upline_id' => $binaryTree->upline_id,
+                    'position' => $binaryTree->position
+                ]);
+            } else {
+                // Upgrade: add only the delta points to uplines
+                $existingPackagePoints = optional($existingFarming?->package)->points ?? 0;
+                $deltaPoints = max(0, $package->points - $existingPackagePoints);
+                if ($deltaPoints > 0) {
+                    $binaryService->updateUplineVolumes($user->id, $deltaPoints);
+                    Log::info('Upgrade: updated upline volumes with delta points', [
+                        'user_id' => $user->id,
+                        'delta_points' => $deltaPoints
+                    ]);
+                }
+            }
 
             // ⭐ NEW: Use CommissionService to process bonuses
             $commissionService = new CommissionService();
@@ -182,6 +207,14 @@ class PackageController extends Controller
                         'direct_referral' => $user->sponsor_id ? ($package->price * 0.05) : 0,
                         'royalty_bonus' => $royaltyBonus ? $royaltyBonus->amount : 0,
                         'pairing_bonuses_count' => count($pairingBonuses)
+                    ],
+                    'distribution' => [
+                        'buy_basket_percent' => $package->buy_basket_percent,
+                        'buy_basket_cost' => $package->buy_basket_cost,
+                        'basket_capacity' => $package->basket_capacity,
+                        'farming_load_amount' => $package->farming_load_amount,
+                        'leafx_tokens_loaded' => $package->leafx_tokens_loaded,
+                        'harvest_multiplier' => $package->harvest_multiplier,
                     ]
                 ]
             ]);

@@ -16,6 +16,13 @@ class Package extends Model
         'max_daily_pairs',
         'pairing_bonus',
         'royalty_bonus',
+        'buy_basket_percent',
+        'buy_basket_cost',
+        'basket_capacity',
+        'harvest_multiplier',
+        'farming_load_amount',
+        'leafx_tokens_loaded',
+        'leafx_token_value',
         'is_active',
     ];
 
@@ -23,6 +30,11 @@ class Package extends Model
         'price' => 'decimal:2',
         'pairing_bonus' => 'decimal:2',
         'royalty_bonus' => 'decimal:2',
+        'buy_basket_cost' => 'decimal:2',
+        'harvest_multiplier' => 'decimal:2',
+        'farming_load_amount' => 'decimal:2',
+        'leafx_tokens_loaded' => 'decimal:2',
+        'leafx_token_value' => 'decimal:2',
     ];
 
     public function farmingLogs()

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Transaction;
 use App\Models\Package;
 use App\Models\FarmingLog;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -260,13 +261,73 @@ class CommissionService
      */
     public function processLeadershipBonus($userId, $farmingReward)
     {
-        // TODO: Implement leadership bonus system
-        // This requires:
-        // 1. Unilevel genealogy tracking
-        // 2. Qualification checking (direct business, direct count)
-        // 3. Percentage calculation based on level
-        
-        return [];
+        // Traverse sponsor genealogy up to 50 levels and credit based on level %
+        // Qualification: minimum direct counts per band.
+        // Percentages (from binaryextracted.md):
+        // L1: 50%; L2: 30%; L3-5: 5%; L6-10: 3%; L11-30: 2%; L31-50: 1%
+        // Qual requirements (direct count):
+        // L1:1, L2:2, L3-5:3, L6-10:5, L11-30:10, L31-50:15
+
+        if ($farmingReward <= 0) {
+            return [];
+        }
+
+        $bonuses = [];
+        $currentUser = User::find($userId);
+        $level = 1;
+
+        while ($currentUser && $currentUser->sponsor_id && $level <= 50) {
+            $sponsor = User::find($currentUser->sponsor_id);
+            if (!$sponsor) {
+                break;
+            }
+
+            $directCount = User::where('sponsor_id', $sponsor->id)->count();
+            $requiredDirects = $this->getRequiredDirectsForLevel($level);
+
+            if ($directCount >= $requiredDirects) {
+                $percentage = $this->getLeadershipPercentageForLevel($level);
+                $bonusAmount = $farmingReward * ($percentage / 100);
+
+                if ($bonusAmount > 0) {
+                    $transaction = Transaction::create([
+                        'user_id' => $sponsor->id,
+                        'type' => 'leadership_bonus',
+                        'amount' => $bonusAmount,
+                        'currency' => 'USD',
+                        'status' => 'completed',
+                        'description' => "Leadership bonus L{$level} ({$percentage}% of farming reward)",
+                        'metadata' => [
+                            'from_user' => $userId,
+                            'level' => $level,
+                            'percentage' => $percentage,
+                            'farming_reward' => $farmingReward,
+                        ],
+                    ]);
+
+                    $bonuses[] = [
+                        'user_id' => $sponsor->id,
+                        'level' => $level,
+                        'percentage' => $percentage,
+                        'amount' => $bonusAmount,
+                        'transaction_id' => $transaction->id,
+                    ];
+
+                    Log::info('Leadership bonus credited', [
+                        'sponsor_id' => $sponsor->id,
+                        'from_user' => $userId,
+                        'level' => $level,
+                        'percentage' => $percentage,
+                        'amount' => $bonusAmount,
+                    ]);
+                }
+            }
+
+            $currentUser = $sponsor;
+            $level++;
+        }
+
+        return $bonuses;
     }
     
     /**
@@ -278,11 +339,40 @@ class CommissionService
      */
     private function checkLeadershipQualification($userId, $level)
     {
-        // TODO: Implement qualification checking
-        // Requirements from binaryextracted.md:
-        // - Direct business $3000 within 30 days
-        // - Minimum number of directs based on level
-        
-        return false;
+        $user = User::find($userId);
+        if (!$user) {
+            return false;
+        }
+
+        $directCount = User::where('sponsor_id', $userId)->count();
+        $requiredDirects = $this->getRequiredDirectsForLevel($level);
+
+        return $directCount >= $requiredDirects;
+    }
+
+    /**
+     * Get required direct referrals count for a leadership level
+     */
+    private function getRequiredDirectsForLevel(int $level): int
+    {
+        if ($level === 1) return 1;
+        if ($level === 2) return 2;
+        if ($level >= 3 && $level <= 5) return 3;
+        if ($level >= 6 && $level <= 10) return 5;
+        if ($level >= 11 && $level <= 30) return 10;
+        return 15; // levels 31-50
+    }
+
+    /**
+     * Get leadership percentage for a given level
+     */
+    private function getLeadershipPercentageForLevel(int $level): float
+    {
+        if ($level === 1) return 50;
+        if ($level === 2) return 30;
+        if ($level >= 3 && $level <= 5) return 5;
+        if ($level >= 6 && $level <= 10) return 3;
+        if ($level >= 11 && $level <= 30) return 2;
+        return 1; // 31-50
     }
 }

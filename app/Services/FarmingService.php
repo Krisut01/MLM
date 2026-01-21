@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\FarmingLog;
 use App\Models\Transaction;
+use App\Services\CommissionService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -87,6 +88,8 @@ class FarmingService
      */
     private function processSingleFarmingLog(FarmingLog $log, Carbon $date)
     {
+        $commissionService = new CommissionService();
+
         // Calculate daily reward (0.50%)
         $dailyReward = $log->package_value * $log->daily_rate;
         
@@ -121,6 +124,9 @@ class FarmingService
                         'cap_limit' => $capLimit
                     ]
                 ]);
+
+                // Leadership bonus on final reward
+                $commissionService->processLeadershipBonus($log->user_id, $finalReward);
             }
             
             Log::info('Farming cap reached', [
@@ -158,6 +164,9 @@ class FarmingService
                     'remaining_to_cap' => $capLimit - $newTotal
                 ]
             ]);
+
+            // Leadership bonus on daily reward
+            $commissionService->processLeadershipBonus($log->user_id, $dailyReward);
             
             // Check 500-day limit
             if ($log->days_run >= 500) {
