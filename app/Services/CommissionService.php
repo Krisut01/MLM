@@ -78,14 +78,14 @@ class CommissionService
 
     /**
      * Process direct referral bonus
-     * 
+     *
      * When a user purchases a package, their sponsor gets a direct bonus.
-     * 
-     * From binaryextracted.md:
-     * - Starter: $2.50 (5% of $50)
-     * - Bronze: $5.00 (5% of $100)
-     * - Gold: $16.00 (5% of $320)
-     * - Mobile: $100.00 (5% of $2000)
+     *
+     * From ExtractedTechnical.md (corrected values):
+     * - Starter: $2.50 (10% of $25)
+     * - Bronze: $5.00 (10% of $50)
+     * - Gold: $16.00 (10% of $160)
+     * - Mobile: $100.00 (10% of $1000)
      *
      * @param int $sponsorId
      * @param float $packagePrice
@@ -96,9 +96,9 @@ class CommissionService
         if (!$sponsorId) {
             return null;
         }
-        
-        // Per binaryextacted.md package table, this aligns to 5% of package price.
-        $bonusAmount = $packagePrice * 0.05; // 5% direct bonus
+
+        // Corrected to 10% based on ExtractedTechnical.md specifications
+        $bonusAmount = $packagePrice * 0.10; // 10% direct bonus
         
         $transaction = Transaction::create([
             'user_id' => $sponsorId,
@@ -106,10 +106,10 @@ class CommissionService
             'amount' => $bonusAmount,
             'currency' => 'USD',
             'status' => 'completed',
-            'description' => "Direct referral bonus (5% of $" . number_format($packagePrice, 2) . ")",
+            'description' => "Direct referral bonus (10% of $" . number_format($packagePrice, 2) . ")",
             'metadata' => [
                 'package_price' => $packagePrice,
-                'percentage' => 5
+                'percentage' => 10
             ]
         ]);
         

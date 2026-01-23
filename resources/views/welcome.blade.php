@@ -3,7 +3,7 @@
         <header class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
             <a href="{{ route('landing') }}" class="font-black text-2xl text-emerald-700">LeafChain</a>
             <div class="flex items-center gap-3 text-sm">
-                @if (Route::has('login'))
+            @if (Route::has('login'))
                     @auth
                         <a href="{{ route('dashboard') }}" class="px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-black">Dashboard</a>
                     @else
@@ -12,7 +12,7 @@
                             <a href="{{ route('register') }}" class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700">Register</a>
                         @endif
                     @endauth
-                @endif
+            @endif
             </div>
         </header>
 
@@ -115,8 +115,8 @@
             @else
                 <div class="rounded-2xl bg-white border border-gray-200 shadow-sm p-8 text-center text-gray-600">
                     No testimonials yet. Add them via <span class="font-semibold">Admin → Testimonials</span>.
-                </div>
-            @endif
+        </div>
+        @endif
         </section>
 
         <footer class="border-t border-gray-200 bg-gray-50">

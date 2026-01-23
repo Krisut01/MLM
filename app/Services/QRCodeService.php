@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Batch;
 use App\Models\Package;
 use App\Models\Transaction;
 use App\Models\User;
