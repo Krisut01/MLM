@@ -40,8 +40,8 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Network</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ $stats['total_downlines'] }}</p>
-                                <p class="text-xs text-gray-400 mt-1">All levels</p>
+                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['total_downlines'] }}</p>
+                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">All levels</p>
                             </div>
                         </div>
                     </div>
@@ -57,8 +57,8 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Members</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ $stats['active_downlines'] }}</p>
-                                <p class="text-xs text-gray-400 mt-1">With packages</p>
+                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['active_downlines'] }}</p>
+                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">With packages</p>
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,8 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Left Volume</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ $stats['left_volume'] }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Points</p>
+                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['left_volume'] }}</p>
+                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Points</p>
                             </div>
                         </div>
                     </div>
@@ -91,8 +91,8 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Right Volume</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ $stats['right_volume'] }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Points</p>
+                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['right_volume'] }}</p>
+                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Points</p>
                             </div>
                         </div>
                     </div>
@@ -125,20 +125,73 @@
                         </div>
                     </div>
                     
-                    <div class="overflow-x-auto bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
-                        <div id="tree-container" class="flex justify-center min-w-full">
-                            @if($treeData)
-                                {!! renderTreeNode($treeData) !!}
-                            @else
-                                <div class="text-center text-gray-500 dark:text-gray-400 py-12">
-                                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                                    </svg>
-                                    <p class="font-medium">No binary tree data yet</p>
-                                    <p class="text-sm mt-1">Purchase a package to get started!</p>
+                    <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 md:p-6">
+                        <!-- Tree Controls -->
+                        <div class="flex flex-wrap items-center justify-between mb-4 gap-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium">Depth:</span> Limited to 4 levels for performance
                                 </div>
-                            @endif
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium">Max nodes/level:</span> 50 for optimal display
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button id="zoom-in" class="px-3 py-1 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-300 rounded text-sm font-medium transition-colors">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m-3-3h3m3 0h-3m-3-3h3"/>
+                                    </svg>
+                                    Zoom In
+                                </button>
+                                <button id="zoom-out" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm font-medium transition-colors">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"/>
+                                    </svg>
+                                    Zoom Out
+                                </button>
+                                <button id="fit-view" class="px-3 py-1 bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800 text-green-700 dark:text-green-300 rounded text-sm font-medium transition-colors">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5"/>
+                                    </svg>
+                                    Fit View
+                                </button>
+                            </div>
                         </div>
+
+                        <!-- Tree Container with improved responsiveness -->
+                        <div class="relative overflow-auto bg-white dark:bg-gray-800 rounded-lg shadow-inner">
+                            <div id="tree-container" class="min-h-[400px] p-4 transition-transform duration-300 ease-in-out"
+                                 style="transform-origin: center top;">
+                                @if($treeData)
+                                    <div class="flex justify-center">
+                                        {!! renderTreeNode($treeData) !!}
+                                    </div>
+                                @else
+                                    <div class="text-center text-gray-500 dark:text-gray-400 py-12">
+                                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                        <p class="font-medium">No binary tree data yet</p>
+                                        <p class="text-sm mt-1">Purchase a package to get started!</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Performance Notice -->
+                        @if($stats['total_downlines'] > 100)
+                        <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div class="text-sm text-blue-800 dark:text-blue-200">
+                                    <p class="font-medium text-blue-900 dark:text-blue-100">Large Network Detected</p>
+                                    <p class="mt-1 text-blue-700 dark:text-blue-300">Your network has {{ $stats['total_downlines'] }} members. For optimal performance, the tree view is limited to 4 levels and 50 nodes per level. Use the zoom controls to navigate your tree effectively.</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -177,11 +230,11 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             @if($downline->binaryTree)
-                                                <span class="px-2 py-1 text-xs font-medium rounded {{ $downline->binaryTree->position === 'left' ? 'bg-purple-100 text-purple-800' : 'bg-orange-100 text-orange-800' }}">
+                                                <span class="px-2 py-1 text-xs font-medium rounded {{ $downline->binaryTree->position === 'left' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' : 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' }}">
                                                     {{ ucfirst($downline->binaryTree->position) }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">Not Set</span>
+                                                <span class="text-gray-400 dark:text-gray-500">Not Set</span>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 font-medium">
@@ -224,134 +277,356 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const treeContainer = document.getElementById('tree-container');
+            let currentScale = 1;
+            const minScale = 0.3;
+            const maxScale = 2;
+            const scaleStep = 0.2;
+
+            // Zoom controls
+            document.getElementById('zoom-in').addEventListener('click', function() {
+                if (currentScale < maxScale) {
+                    currentScale = Math.min(currentScale + scaleStep, maxScale);
+                    updateTransform();
+                } else {
+                    // Visual feedback for disabled state
+                    this.style.opacity = '0.5';
+                    setTimeout(() => { this.style.opacity = '1'; }, 200);
+                }
+            });
+
+            document.getElementById('zoom-out').addEventListener('click', function() {
+                if (currentScale > minScale) {
+                    currentScale = Math.max(currentScale - scaleStep, minScale);
+                    updateTransform();
+                } else {
+                    // Visual feedback for disabled state
+                    this.style.opacity = '0.5';
+                    setTimeout(() => { this.style.opacity = '1'; }, 200);
+                }
+            });
+
+            document.getElementById('fit-view').addEventListener('click', function() {
+                currentScale = 1;
+                updateTransform();
+                // Scroll to center
+                treeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            function updateTransform() {
+                treeContainer.style.transform = `scale(${currentScale})`;
+
+                // Update button states and visibility
+                const zoomInBtn = document.getElementById('zoom-in');
+                const zoomOutBtn = document.getElementById('zoom-out');
+
+                if (currentScale >= maxScale) {
+                    zoomInBtn.disabled = true;
+                    zoomInBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    zoomInBtn.classList.remove('hover:bg-blue-200', 'dark:hover:bg-blue-800');
+                } else {
+                    zoomInBtn.disabled = false;
+                    zoomInBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    zoomInBtn.classList.add('hover:bg-blue-200', 'dark:hover:bg-blue-800');
+                }
+
+                if (currentScale <= minScale) {
+                    zoomOutBtn.disabled = true;
+                    zoomOutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    zoomOutBtn.classList.remove('hover:bg-gray-200', 'dark:hover:bg-gray-700');
+                } else {
+                    zoomOutBtn.disabled = false;
+                    zoomOutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    zoomOutBtn.classList.add('hover:bg-gray-200', 'dark:hover:bg-gray-700');
+                }
+            }
+
+            // Mouse wheel zoom
+            treeContainer.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    if (e.deltaY < 0 && currentScale < maxScale) {
+                        currentScale = Math.min(currentScale + scaleStep, maxScale);
+                    } else if (e.deltaY > 0 && currentScale > minScale) {
+                        currentScale = Math.max(currentScale - scaleStep, minScale);
+                    }
+                    updateTransform();
+                }
+            });
+
+            // Pan functionality (for touch devices)
+            let isDragging = false;
+            let startX, startY, scrollLeft, scrollTop;
+
+            treeContainer.addEventListener('mousedown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    isDragging = true;
+                    startX = e.pageX - treeContainer.offsetLeft;
+                    startY = e.pageY - treeContainer.offsetTop;
+                    treeContainer.style.cursor = 'grabbing';
+                }
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX - treeContainer.offsetLeft;
+                const y = e.pageY - treeContainer.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                treeContainer.scrollLeft = scrollLeft - walkX;
+                treeContainer.scrollTop = scrollTop - walkY;
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+                treeContainer.style.cursor = 'default';
+            });
+
+            // Group node click handler (for future expansion)
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.group-node')) {
+                    // Future: Implement group expansion
+                    alert('Group expansion feature coming soon!');
+                }
+            });
+
+            // Initialize
+            updateTransform();
+        });
+    </script>
+
     <style>
+        .tree-container-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
         .tree-node {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 30px;
+            margin: 0 15px;
             position: relative;
+            flex-shrink: 0;
         }
-        
+
         .tree-children {
             display: flex;
             justify-content: center;
-            margin-top: 60px;
+            align-items: flex-start;
+            margin-top: 40px;
             position: relative;
+            flex-wrap: nowrap;
         }
-        
+
         .tree-children::before {
             content: '';
             position: absolute;
-            top: -30px;
+            top: -20px;
             left: 50%;
             width: 2px;
-            height: 30px;
+            height: 20px;
             background: linear-gradient(to bottom, #9ca3af 0%, #d1d5db 100%);
         }
-        
+
         .tree-children > .tree-node:not(:last-child)::after {
             content: '';
             position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 60px;
+            top: -20px;
+            right: -15px;
+            width: 30px;
             height: 2px;
             background: #d1d5db;
         }
-        
+
         .tree-node-card {
-            border: 3px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
             background: white;
-            min-width: 180px;
+            min-width: 140px;
+            max-width: 160px;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
             position: relative;
+            word-wrap: break-word;
         }
-        
+
         .tree-node-card::before {
             content: '';
             position: absolute;
-            top: -30px;
+            top: -20px;
             left: 50%;
             width: 2px;
-            height: 30px;
+            height: 20px;
             background: #d1d5db;
             transform: translateX(-50%);
         }
-        
+
         .tree-node:first-child > .tree-node-card::before {
             display: none;
         }
-        
+
         .tree-node-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.1);
         }
-        
+
         .tree-node-card.active {
             border-color: #10b981;
             background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
         }
-        
+
         .tree-node-card.inactive {
             border-color: #d1d5db;
             background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
         }
-        
+
         .tree-node-card.current-user {
             border-color: #3b82f6;
             background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        
+
+        .tree-node-card.group-node {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            cursor: pointer;
+        }
+
         @media (prefers-color-scheme: dark) {
             .tree-node-card {
                 background: #1f2937;
                 border-color: #374151;
             }
-            
+
             .tree-node-card.active {
                 background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
                 border-color: #10b981;
             }
-            
+
             .tree-node-card.inactive {
                 background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             }
-            
+
             .tree-node-card.current-user {
                 background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
                 border-color: #3b82f6;
             }
+
+            .tree-node-card.group-node {
+                background: linear-gradient(135deg, #2d1b69 0%, #1e1b4b 100%);
+                border-color: #8b5cf6;
+            }
         }
-        
+
         .tree-badge {
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .tree-badge.you {
             background: #3b82f6;
             color: white;
         }
-        
+
         .tree-badge.active {
             background: #10b981;
             color: white;
         }
-        
+
         .tree-badge.inactive {
             background: #9ca3af;
             color: white;
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 768px) {
+            .tree-node {
+                margin: 0 8px;
+                min-width: 120px;
+            }
+
+            .tree-node-card {
+                min-width: 120px;
+                max-width: 140px;
+                padding: 8px 12px;
+            }
+
+            .tree-children > .tree-node:not(:last-child)::after {
+                width: 16px;
+                right: -8px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tree-node {
+                margin: 0 4px;
+                min-width: 100px;
+            }
+
+            .tree-node-card {
+                min-width: 100px;
+                max-width: 120px;
+                padding: 6px 8px;
+            }
+
+            .tree-children {
+                margin-top: 30px;
+            }
+
+            .tree-badge {
+                font-size: 8px;
+                padding: 1px 4px;
+            }
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        /* Performance optimizations */
+        .tree-node-card * {
+            pointer-events: none;
+        }
+
+        .tree-node-card.group-node * {
+            pointer-events: auto;
+        }
+
+        /* Ensure button text remains visible in all states */
+        button:disabled {
+            opacity: 0.5;
+        }
+
+        button:disabled:hover {
+            background-color: inherit !important;
+        }
+
+        /* Improve focus visibility */
+        button:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Dark mode button improvements */
+        @media (prefers-color-scheme: dark) {
+            button:focus {
+                outline-color: #60a5fa;
+            }
         }
     </style>
 </x-app-layout>
@@ -361,13 +636,29 @@ function renderTreeNode($node, $isCurrentUser = true) {
     if (!$node) {
         return '<div class="tree-node"><div class="tree-node-card inactive"><p class="text-xs text-gray-400 dark:text-gray-500">Empty Slot</p><p class="text-xs text-gray-300 dark:text-gray-600 mt-1">Available</p></div></div>';
     }
-    
+
+    // Handle group nodes (when there are too many children)
+    if (isset($node['is_group']) && $node['is_group']) {
+        $html = '<div class="tree-node">';
+        $html .= '<div class="tree-node-card group-node" style="border-color: #8b5cf6; background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);">';
+        $html .= '<div class="mb-2"><span class="tree-badge" style="background: #8b5cf6; color: white;">GROUP</span></div>';
+        $html .= '<p class="font-bold text-base text-gray-900 dark:text-gray-100">' . e($node['name']) . '</p>';
+        $html .= '<p class="text-xs text-purple-600 dark:text-purple-400 mt-1">Click to expand</p>';
+        $html .= '<div class="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800">';
+        $html .= '<p class="text-sm font-bold text-purple-700 dark:text-purple-300">' . $node['group_count'] . ' members</p>';
+        $html .= '<p class="text-xs text-purple-600 dark:text-purple-400">Too many to display</p>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '</div>';
+        return $html;
+    }
+
     $hasPackage = $node['has_package'];
     $cardClass = $hasPackage ? 'active' : 'inactive';
     if ($isCurrentUser && $node['depth'] == 0) {
         $cardClass = 'current-user';
     }
-    
+
     $badgeClass = '';
     $badgeText = '';
     if ($isCurrentUser && $node['depth'] == 0) {
@@ -380,60 +671,72 @@ function renderTreeNode($node, $isCurrentUser = true) {
         $badgeClass = 'inactive';
         $badgeText = 'INACTIVE';
     }
-    
+
     $html = '<div class="tree-node">';
     $html .= '<div class="tree-node-card ' . $cardClass . '">';
-    
+
     // Badge
     $html .= '<div class="mb-2"><span class="tree-badge ' . $badgeClass . '">' . $badgeText . '</span></div>';
-    
-    // Name and ID
-    $html .= '<p class="font-bold text-base text-gray-900 dark:text-gray-100">' . e($node['name']) . '</p>';
+
+    // Name and ID (truncate long names)
+    $name = strlen($node['name']) > 15 ? substr($node['name'], 0, 12) . '...' : $node['name'];
+    $html .= '<p class="font-bold text-sm text-gray-900 dark:text-gray-100" title="' . e($node['name']) . '">' . e($name) . '</p>';
     $html .= '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">ID: ' . $node['id'] . '</p>';
-    
+
     // Package info
-    if ($hasPackage) {
+    if ($hasPackage && $node['package_value'] > 0) {
         $html .= '<div class="mt-3 pt-3 border-t border-green-200 dark:border-green-800">';
-        $html .= '<p class="text-sm font-bold text-green-700 dark:text-green-300">$' . number_format($node['package_value'], 2) . '</p>';
-        $html .= '<p class="text-xs text-green-600 dark:text-green-400">Package Value</p>';
+        $html .= '<p class="text-sm font-bold text-green-700 dark:text-green-300">$' . number_format($node['package_value'], 0) . '</p>';
+        $html .= '<p class="text-xs text-green-600 dark:text-green-400">Package</p>';
         $html .= '</div>';
     } else {
         $html .= '<div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">';
         $html .= '<p class="text-xs text-gray-400 dark:text-gray-500">No Package</p>';
         $html .= '</div>';
     }
-    
-    // Volumes
-    if ($node['left_volume'] > 0 || $node['right_volume'] > 0) {
-        $html .= '<div class="mt-2 flex justify-center space-x-3 text-xs font-medium">';
-        $html .= '<div class="flex items-center">';
-        $html .= '<svg class="w-3 h-3 mr-1 text-purple-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"/></svg>';
-        $html .= '<span class="text-purple-600 dark:text-purple-400">L:' . $node['left_volume'] . '</span>';
-        $html .= '</div>';
-        $html .= '<div class="flex items-center">';
-        $html .= '<svg class="w-3 h-3 mr-1 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"/></svg>';
-        $html .= '<span class="text-orange-600 dark:text-orange-400">R:' . $node['right_volume'] . '</span>';
-        $html .= '</div>';
+
+    // Volumes (only show if meaningful)
+    if (($node['left_volume'] > 0 || $node['right_volume'] > 0) && $node['depth'] < 3) {
+        $html .= '<div class="mt-2 flex justify-center space-x-2 text-xs font-medium">';
+        if ($node['left_volume'] > 0) {
+            $html .= '<div class="flex items-center">';
+            $html .= '<span class="text-purple-600 dark:text-purple-400 font-bold">L:' . number_format($node['left_volume']) . '</span>';
+            $html .= '</div>';
+        }
+        if ($node['right_volume'] > 0) {
+            $html .= '<div class="flex items-center ml-2">';
+            $html .= '<span class="text-orange-600 dark:text-orange-400 font-bold">R:' . number_format($node['right_volume']) . '</span>';
+            $html .= '</div>';
+        }
         $html .= '</div>';
     }
-    
+
     $html .= '</div>';
-    
-    // Render children
-    if ($node['left'] || $node['right']) {
+
+    // Render children (with depth limiting for performance)
+    $hasChildren = ($node['left'] || $node['right']);
+    if ($hasChildren && $node['depth'] < 3) { // Limit depth for performance
         $html .= '<div class="tree-children">';
-        
+
         // Left child
         $html .= renderTreeNode($node['left'] ?? null, false);
-        
+
         // Right child
         $html .= renderTreeNode($node['right'] ?? null, false);
-        
+
+        $html .= '</div>';
+    } elseif ($hasChildren && $node['depth'] >= 3) {
+        // Show expansion indicator for deeper levels
+        $html .= '<div class="tree-children">';
+        $html .= '<div class="tree-node"><div class="tree-node-card" style="border-color: #6b7280; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);">';
+        $html .= '<p class="text-xs text-gray-500 dark:text-gray-400">More levels available</p>';
+        $html .= '<p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Limited for performance</p>';
+        $html .= '</div></div>';
         $html .= '</div>';
     }
-    
+
     $html .= '</div>';
-    
+
     return $html;
 }
 @endphp

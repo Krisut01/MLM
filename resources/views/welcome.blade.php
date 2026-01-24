@@ -29,8 +29,8 @@
                     <a href="{{ $settings?->cta_link ?? '/register' }}" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
                         {{ $settings?->cta_text ?? 'Get Started' }}
                     </a>
-                    <a href="{{ route('products.index') }}" class="px-6 py-3 rounded-xl bg-white text-gray-900 font-semibold border border-gray-200 hover:bg-gray-50">
-                        Browse Products
+                    <a href="{{ route('packages') }}" class="px-6 py-3 rounded-xl bg-white text-gray-900 font-semibold border border-gray-200 hover:bg-gray-50">
+                        Browse Packages
                     </a>
                 </div>
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">

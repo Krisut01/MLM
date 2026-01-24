@@ -18,9 +18,6 @@
                     <x-nav-link href="{{ route('packages') }}" :active="request()->routeIs('packages*')">
                         {{ __('Packages') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products*')">
-                        🌿 {{ __('Products') }}
-                    </x-nav-link>
                     <x-nav-link href="{{ route('binary.tree') }}" :active="request()->routeIs('binary.tree')">
                         {{ __('Binary Tree') }}
                     </x-nav-link>
@@ -158,9 +155,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('packages') }}" :active="request()->routeIs('packages*')">
                 {{ __('Packages') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products*')">
-                🌿 {{ __('Products') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('binary.tree') }}" :active="request()->routeIs('binary.tree')">
                 {{ __('Binary Tree') }}

@@ -34,44 +34,101 @@ class BinaryController extends Controller
     }
     
     /**
-     * Build hierarchical tree data for visualization
+     * Build hierarchical tree data for visualization with performance optimizations
      */
-    private function buildTreeData($userId, $depth = 0, $maxDepth = 5)
+    private function buildTreeData($userId, $depth = 0, $maxDepth = 4, $maxNodesPerLevel = 50)
     {
         if ($depth >= $maxDepth) {
             return null;
         }
-        
+
         $user = User::find($userId);
         if (!$user) {
             return null;
         }
-        
+
         $tree = BinaryTree::where('user_id', $userId)->first();
         $farmingLog = FarmingLog::where('user_id', $userId)
             ->where('status', 'active')
             ->first();
-        
-        // Find left and right children
+
+        // Find left and right children with limits to prevent performance issues
         $leftChild = null;
         $rightChild = null;
-        
+        $hasMoreLeft = false;
+        $hasMoreRight = false;
+
         if ($tree) {
-            $leftTree = BinaryTree::where('upline_id', $userId)
+            // Get left children count first
+            $leftChildrenCount = BinaryTree::where('upline_id', $userId)
                 ->where('position', 'left')
-                ->first();
-            $rightTree = BinaryTree::where('upline_id', $userId)
+                ->count();
+
+            // Get right children count first
+            $rightChildrenCount = BinaryTree::where('upline_id', $userId)
                 ->where('position', 'right')
-                ->first();
-                
-            if ($leftTree) {
-                $leftChild = $this->buildTreeData($leftTree->user_id, $depth + 1, $maxDepth);
+                ->count();
+
+            // Only load actual children if within limits
+            if ($leftChildrenCount > 0) {
+                if ($leftChildrenCount <= $maxNodesPerLevel) {
+                    $leftTree = BinaryTree::where('upline_id', $userId)
+                        ->where('position', 'left')
+                        ->first();
+                    if ($leftTree) {
+                        $leftChild = $this->buildTreeData($leftTree->user_id, $depth + 1, $maxDepth, $maxNodesPerLevel);
+                    }
+                } else {
+                    // Too many children, show summary instead
+                    $hasMoreLeft = true;
+                    $leftChild = [
+                        'id' => 'left-group',
+                        'name' => $leftChildrenCount . ' Members',
+                        'email' => '',
+                        'has_package' => true,
+                        'package_value' => 0,
+                        'left_volume' => 0,
+                        'right_volume' => 0,
+                        'position' => 'left',
+                        'left' => null,
+                        'right' => null,
+                        'depth' => $depth + 1,
+                        'is_group' => true,
+                        'group_count' => $leftChildrenCount
+                    ];
+                }
             }
-            if ($rightTree) {
-                $rightChild = $this->buildTreeData($rightTree->user_id, $depth + 1, $maxDepth);
+
+            if ($rightChildrenCount > 0) {
+                if ($rightChildrenCount <= $maxNodesPerLevel) {
+                    $rightTree = BinaryTree::where('upline_id', $userId)
+                        ->where('position', 'right')
+                        ->first();
+                    if ($rightTree) {
+                        $rightChild = $this->buildTreeData($rightTree->user_id, $depth + 1, $maxDepth, $maxNodesPerLevel);
+                    }
+                } else {
+                    // Too many children, show summary instead
+                    $hasMoreRight = true;
+                    $rightChild = [
+                        'id' => 'right-group',
+                        'name' => $rightChildrenCount . ' Members',
+                        'email' => '',
+                        'has_package' => true,
+                        'package_value' => 0,
+                        'left_volume' => 0,
+                        'right_volume' => 0,
+                        'position' => 'right',
+                        'left' => null,
+                        'right' => null,
+                        'depth' => $depth + 1,
+                        'is_group' => true,
+                        'group_count' => $rightChildrenCount
+                    ];
+                }
             }
         }
-        
+
         return [
             'id' => $user->id,
             'name' => $user->name,
@@ -85,6 +142,9 @@ class BinaryController extends Controller
             'left' => $leftChild,
             'right' => $rightChild,
             'depth' => $depth,
+            'has_more_left' => $hasMoreLeft,
+            'has_more_right' => $hasMoreRight,
+            'is_group' => false,
         ];
     }
     

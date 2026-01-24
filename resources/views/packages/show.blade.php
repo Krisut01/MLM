@@ -281,16 +281,15 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($package->products as $product)
-                            <a href="{{ route('products.show', $product->slug) }}" 
-                               class="group flex items-start p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors border border-gray-200 dark:border-gray-600 hover:border-emerald-300">
+                            <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600">
                                 <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30 rounded-lg overflow-hidden mr-4">
                                     <img src="{{ $product->image_url }}" 
                                          alt="{{ $product->name }}" 
-                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                         class="w-full h-full object-cover">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-start justify-between mb-1">
-                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm line-clamp-1 group-hover:text-emerald-600">
+                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm line-clamp-1">
                                             {{ $product->name }}
                                         </h4>
                                         <span class="ml-2 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-full flex-shrink-0">
@@ -304,7 +303,7 @@
                                         ${{ number_format($product->price, 2) }} ea
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                             @endforeach
                         </div>
 
@@ -314,8 +313,7 @@
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
                                 <div class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong>Note:</strong> All flower tea products are 100% organic and come with blockchain provenance tracking via QR code. Each product includes health benefits as listed in our product catalog. 
-                                    <a href="{{ route('products.index') }}" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-semibold">Browse all products →</a>
+                                    <strong>Note:</strong> All flower tea products are 100% organic and come with blockchain provenance tracking via QR code. Each product includes health benefits and is bundled with your package purchase.
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PackageController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BinaryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FarmingController;
@@ -24,11 +23,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/packages/purchase', [PackageController::class, 'purchase'])->name('packages.purchase');
     Route::post('/packages/simulate-purchase', [PackageController::class, 'simulatePurchase'])->name('packages.simulate.purchase');
     
-    // Phase 2: Product Marketplace
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
-    Route::get('/products/category/{slug}', [ProductController::class, 'category'])->name('products.category');
-    Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name('products.show');
+    // Phase 2: Package Marketplace (Flower Tea Bundles included in MLM packages)
+    // Individual product sales removed - products are bundled with MLM packages only
     
     // Binary & Rewards
     Route::get('/binary-tree', [BinaryController::class, 'index'])->name('binary.tree');
