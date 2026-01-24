@@ -22,7 +22,7 @@
                              autocomplete="off" />
                     <span id="sponsorStatus" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm"></span>
                 </div>
-                <p id="sponsorName" class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
+                <p id="sponsorName" class="mt-1 text-sm text-gray-600"></p>
                 @error('sponsor_id')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

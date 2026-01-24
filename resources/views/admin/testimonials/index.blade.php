@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Testimonials
             </h2>
             <a href="{{ route('admin.testimonials.create') }}" class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700">Add Testimonial</a>
@@ -16,26 +16,26 @@
                 </div>
             @endif
 
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
+            <div class="bg-white rounded-2xl shadow overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full">
-                        <thead class="bg-gray-50 dark:bg-gray-900/40">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <th class="text-left text-xs font-semibold text-gray-600 dark:text-gray-300 px-6 py-3">Name</th>
-                                <th class="text-left text-xs font-semibold text-gray-600 dark:text-gray-300 px-6 py-3">Quote</th>
-                                <th class="text-left text-xs font-semibold text-gray-600 dark:text-gray-300 px-6 py-3">Active</th>
-                                <th class="text-left text-xs font-semibold text-gray-600 dark:text-gray-300 px-6 py-3">Sort</th>
-                                <th class="text-right text-xs font-semibold text-gray-600 dark:text-gray-300 px-6 py-3">Actions</th>
+                                <th class="text-left text-xs font-semibold text-gray-600 px-6 py-3">Name</th>
+                                <th class="text-left text-xs font-semibold text-gray-600 px-6 py-3">Quote</th>
+                                <th class="text-left text-xs font-semibold text-gray-600 px-6 py-3">Active</th>
+                                <th class="text-left text-xs font-semibold text-gray-600 px-6 py-3">Sort</th>
+                                <th class="text-right text-xs font-semibold text-gray-600 px-6 py-3">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody class="divide-y divide-gray-200">
                             @forelse($testimonials as $t)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-6 py-4 text-sm text-gray-900">
                                         <div class="font-semibold">{{ $t->name }}</div>
                                         @if($t->title)<div class="text-xs text-gray-500">{{ $t->title }}</div>@endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
+                                    <td class="px-6 py-4 text-sm text-gray-700">
                                         <div class="line-clamp-2">{{ $t->quote }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-sm">
@@ -45,7 +45,7 @@
                                             <span class="px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-800">No</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">{{ $t->sort_order }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">{{ $t->sort_order }}</td>
                                     <td class="px-6 py-4 text-sm text-right">
                                         <a href="{{ route('admin.testimonials.edit', $t) }}" class="text-blue-600 hover:underline">Edit</a>
                                         <form method="POST" action="{{ route('admin.testimonials.delete', $t) }}" class="inline">

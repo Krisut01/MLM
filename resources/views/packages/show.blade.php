@@ -2,22 +2,22 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-bold text-3xl text-gray-900 dark:text-white tracking-tight">
+                <h2 class="font-bold text-3xl text-gray-900 tracking-tight">
                     {{ $package->name }} Package
                 </h2>
-                <p class="mt-2 text-gray-600 dark:text-gray-400">
+                <p class="mt-2 text-gray-600">
                     Complete investment package with binary compensation and farming rewards
                 </p>
             </div>
             <div class="flex items-center space-x-4">
                 <a href="{{ route('packages') }}"
-                   class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50:bg-gray-700 transition-colors duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     Back to Packages
                 </a>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
                     <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
@@ -98,8 +98,8 @@
                 <div class="lg:col-span-2 space-y-8">
 
                     <!-- Key Features -->
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -109,76 +109,76 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Binary Compensation</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">Access to our dual-leg matching system with daily pairing bonuses</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">Binary Compensation</h4>
+                                        <p class="text-gray-600 text-sm">Access to our dual-leg matching system with daily pairing bonuses</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Daily Farming Rewards</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">0.50% daily returns for up to 500 days with guaranteed 3X maximum ROI</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">Daily Farming Rewards</h4>
+                                        <p class="text-gray-600 text-sm">0.50% daily returns for up to 500 days with guaranteed 3X maximum ROI</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Network Building</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">Leadership bonuses and car club qualifications for top performers</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">Network Building</h4>
+                                        <p class="text-gray-600 text-sm">Leadership bonuses and car club qualifications for top performers</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="space-y-4">
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">VIP Rewards</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">Star qualifications, car rewards, and house & lot incentives</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">VIP Rewards</h4>
+                                        <p class="text-gray-600 text-sm">Star qualifications, car rewards, and house & lot incentives</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Blockchain Security</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">Immutable transaction records and decentralized verification</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">Blockchain Security</h4>
+                                        <p class="text-gray-600 text-sm">Immutable transaction records and decentralized verification</p>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start">
-                                    <div class="w-10 h-10 bg-pink-100 dark:bg-pink-900 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                                        <svg class="w-5 h-5 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                        <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Community Support</h4>
-                                        <p class="text-gray-600 dark:text-gray-300 text-sm">24/7 support and educational resources for success</p>
+                                        <h4 class="font-semibold text-gray-900 mb-1">Community Support</h4>
+                                        <p class="text-gray-600 text-sm">24/7 support and educational resources for success</p>
                                     </div>
                                 </div>
                             </div>
@@ -186,8 +186,8 @@
                     </div>
 
                     <!-- Technical Specifications -->
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                             </svg>
@@ -196,44 +196,44 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Binary Points</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Binary Points</span>
                                     <span class="text-2xl font-bold text-blue-600">{{ $package->points }}</span>
                                 </div>
 
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Daily Pair Limit</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Daily Pair Limit</span>
                                     <span class="text-2xl font-bold text-purple-600">{{ $package->max_daily_pairs }}</span>
                                 </div>
 
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Pairing Bonus Rate</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Pairing Bonus Rate</span>
                                     <span class="text-2xl font-bold text-emerald-600">${{ number_format($package->pairing_bonus, 2) }}</span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Royalty Bonus</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">Royalty Bonus</span>
                                     <span class="text-2xl font-bold text-purple-600">${{ number_format($package->royalty_bonus ?? 0, 2) }}</span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Buy Basket (Digital)</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">Buy Basket (Digital)</span>
                                     <span class="text-lg font-semibold text-blue-600">
                                         {{ $package->buy_basket_percent }}% / ${{ number_format($package->buy_basket_cost, 2) }}
                                     </span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Basket Capacity</span>
-                                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ number_format($package->basket_capacity) }}</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">Basket Capacity</span>
+                                    <span class="text-lg font-semibold text-gray-900">{{ number_format($package->basket_capacity) }}</span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Harvest Multiplier</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">Harvest Multiplier</span>
                                     <span class="text-lg font-semibold text-emerald-600">x{{ number_format($package->harvest_multiplier, 1) }}</span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Farming Load</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">Farming Load</span>
                                     <span class="text-lg font-semibold text-amber-600">${{ number_format($package->farming_load_amount, 2) }}</span>
                                 </div>
-                                <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">LeafX Tokens Loaded</span>
+                                <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                                    <span class="text-gray-600 font-medium">LeafX Tokens Loaded</span>
                                     <span class="text-lg font-semibold text-indigo-600">
                                         {{ number_format($package->leafx_tokens_loaded, 2) }} (at ${{ number_format($package->leafx_token_value, 2) }} each)
                                     </span>
@@ -241,18 +241,18 @@
                             </div>
 
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Farming Rate</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Farming Rate</span>
                                     <span class="text-2xl font-bold text-orange-600">0.50%</span>
                                 </div>
 
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Farming Duration</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Farming Duration</span>
                                     <span class="text-2xl font-bold text-indigo-600">500 Days</span>
                                 </div>
 
-                                <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Maximum ROI</span>
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <span class="text-gray-600 font-medium">Maximum ROI</span>
                                     <span class="text-2xl font-bold text-red-600">300%</span>
                                 </div>
                             </div>
@@ -261,18 +261,18 @@
 
                     <!-- Product Inclusions -->
                     @if($package->products->count() > 0)
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                             </svg>
                             🌿 Included Flower Tea Products
                         </h3>
 
-                        <div class="mb-6 p-4 bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                        <div class="mb-6 p-4 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-200">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Included Products</div>
+                                    <div class="text-sm text-gray-600 mb-1">Total Included Products</div>
                                     <div class="text-3xl font-bold text-emerald-600">{{ $package->products->sum('pivot.quantity') }} Flower Teas</div>
                                 </div>
                                 <div class="text-5xl">📦</div>
@@ -281,25 +281,25 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($package->products as $product)
-                            <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600">
-                                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30 rounded-lg overflow-hidden mr-4">
+                            <div class="flex items-start p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 rounded-lg overflow-hidden mr-4">
                                     <img src="{{ $product->image_url }}" 
                                          alt="{{ $product->name }}" 
                                          class="w-full h-full object-cover">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-start justify-between mb-1">
-                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm line-clamp-1">
+                                        <h4 class="font-semibold text-gray-900 text-sm line-clamp-1">
                                             {{ $product->name }}
                                         </h4>
-                                        <span class="ml-2 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-full flex-shrink-0">
+                                        <span class="ml-2 px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full flex-shrink-0">
                                             {{ $product->pivot->quantity }}x
                                         </span>
                                     </div>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2 line-clamp-1">
+                                    <p class="text-xs text-gray-500 mb-2 line-clamp-1">
                                         {{ $product->category->icon }} {{ $product->category->name }}
                                     </p>
-                                    <div class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                    <div class="text-xs text-emerald-600 font-medium">
                                         ${{ number_format($product->price, 2) }} ea
                                     </div>
                                 </div>
@@ -307,12 +307,12 @@
                             @endforeach
                         </div>
 
-                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                        <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
                             <div class="flex items-start">
-                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
-                                <div class="text-sm text-gray-700 dark:text-gray-300">
+                                <div class="text-sm text-gray-700">
                                     <strong>Note:</strong> All flower tea products are 100% organic and come with blockchain provenance tracking via QR code. Each product includes health benefits and is bundled with your package purchase.
                                 </div>
                             </div>
@@ -321,8 +321,8 @@
                     @endif
 
                     <!-- Earnings Projection -->
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 border border-blue-200">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                             </svg>
@@ -332,24 +332,24 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-blue-600 mb-2">${{ number_format($package->price * 0.005, 2) }}</div>
-                                <div class="text-sm text-gray-600 dark:text-gray-400">Daily Farming</div>
+                                <div class="text-sm text-gray-600">Daily Farming</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-emerald-600 mb-2">${{ number_format($package->price * 0.005 * 30, 2) }}</div>
-                                <div class="text-sm text-gray-600 dark:text-gray-400">Monthly Average</div>
+                                <div class="text-sm text-gray-600">Monthly Average</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-purple-600 mb-2">${{ number_format($package->price * 3, 0) }}</div>
-                                <div class="text-sm text-gray-600 dark:text-gray-400">3X Maximum</div>
+                                <div class="text-sm text-gray-600">3X Maximum</div>
                             </div>
                         </div>
 
-                        <div class="bg-white/50 dark:bg-gray-800/50 rounded-xl p-6">
-                            <div class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                        <div class="bg-white/50 rounded-xl p-6">
+                            <div class="text-sm text-gray-700 mb-4">
                                 <strong>Note:</strong> Projections are estimates. Actual earnings depend on binary matching efficiency, leadership bonuses, and market conditions. All farming rewards are guaranteed up to the 3X maximum ROI cap.
                             </div>
 
-                            <div class="flex items-center text-sm text-blue-600 dark:text-blue-400">
+                            <div class="flex items-center text-sm text-blue-600">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
@@ -363,41 +363,41 @@
                 <div class="space-y-6">
 
                     <!-- Purchase Card -->
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 sticky top-8">
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Secure Purchase</h3>
+                    <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Secure Purchase</h3>
 
                         <!-- Price Display -->
                         <div class="text-center mb-8">
                             <div class="text-6xl font-black text-emerald-600 mb-2">
                                 ${{ number_format($package->price, 2) }}
                             </div>
-                            <div class="text-gray-600 dark:text-gray-400">One-time investment</div>
+                            <div class="text-gray-600">One-time investment</div>
                         </div>
 
                         <!-- Payment Method -->
-                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl p-6 mb-6">
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mb-6">
                             <div class="flex items-center justify-center mb-4">
                                 <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" class="w-8 h-8 mr-3">
                                 <div class="text-center">
-                                    <div class="font-semibold text-gray-900 dark:text-white">USDT Payment</div>
-                                    <div class="text-sm text-gray-600 dark:text-gray-400">TRC20 / ERC20 Networks</div>
+                                    <div class="font-semibold text-gray-900">USDT Payment</div>
+                                    <div class="text-sm text-gray-600">TRC20 / ERC20 Networks</div>
                                 </div>
                             </div>
 
-                            <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+                            <div class="text-center text-sm text-gray-600">
                                 Secure blockchain payment with instant verification
                             </div>
                         </div>
 
                         <!-- Status Alert -->
-                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-6">
+                        <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
                             <div class="flex items-start">
-                                <svg class="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-5 h-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
                                 <div>
-                                    <h4 class="text-sm font-medium text-green-800 dark:text-green-200">Payment System Active</h4>
-                                    <p class="text-sm text-green-700 dark:text-green-300 mt-1">
+                                    <h4 class="text-sm font-medium text-green-800">Payment System Active</h4>
+                                    <p class="text-sm text-green-700 mt-1">
                                         Secure blockchain payment integration is now active. Connect your MetaMask wallet to proceed with the purchase.
                                     </p>
                                 </div>
@@ -406,27 +406,27 @@
 
                         <!-- Requirements -->
                         <div class="space-y-3 mb-8">
-                            <h4 class="font-semibold text-gray-900 dark:text-white mb-4">Requirements</h4>
+                            <h4 class="font-semibold text-gray-900 mb-4">Requirements</h4>
 
                             <div class="flex items-center text-sm">
                                 <svg class="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700 dark:text-gray-300">MetaMask or TokenPocket wallet</span>
+                                <span class="text-gray-700">MetaMask or TokenPocket wallet</span>
                             </div>
 
                             <div class="flex items-center text-sm">
                                 <svg class="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700 dark:text-gray-300">Sufficient USDT balance</span>
+                                <span class="text-gray-700">Sufficient USDT balance</span>
                             </div>
 
                             <div class="flex items-center text-sm">
                                 <svg class="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="text-gray-700 dark:text-gray-300">Network fees (~$0.01-0.10)</span>
+                                <span class="text-gray-700">Network fees (~$0.01-0.10)</span>
                             </div>
                         </div>
 
@@ -457,16 +457,16 @@
                                 </svg>
                                 <span>Simulate Purchase (Dev)</span>
                             </button>
-                            <p class="text-xs text-purple-600/90 dark:text-purple-300 -mt-2 mb-4 text-center">
+                            <p class="text-xs text-purple-600/90 -mt-2 mb-4 text-center">
                                 Dev mode enabled: no real USDT is required. This will still create transactions, activate farming, and process commissions.
                             </p>
                         @endif
 
                         <!-- Terms -->
                         <div class="text-center">
-                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                            <p class="text-xs text-gray-500">
                                 By purchasing, you agree to our
-                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">terms and conditions</a>.
+                                <a href="#" class="text-blue-600 hover:underline">terms and conditions</a>.
                                 <br>
                                 All transactions are secured by blockchain technology.
                             </p>
@@ -474,15 +474,15 @@
                     </div>
 
                     <!-- Support Card -->
-                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 text-center">
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 text-center">
                         <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"/>
                         </svg>
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Need Help?</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        <h4 class="font-semibold text-gray-900 mb-2">Need Help?</h4>
+                        <p class="text-sm text-gray-600 mb-4">
                             Our support team is here to help you get started
                         </p>
-                        <a href="mailto:support@leafchain.com" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                        <a href="mailto:support@leafchain.com" class="inline-flex items-center text-blue-600 hover:text-blue-800:text-blue-300 font-medium">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -953,34 +953,34 @@
                     <div class="fixed inset-0 transition-opacity" aria-hidden="true">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
-                    <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                        <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 sm:mx-0 sm:h-10 sm:w-10">
-                                    <svg class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
                                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
-                                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
                                         🎉 Payment Successful!
                                     </h3>
                                     <div class="mt-2">
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        <p class="text-sm text-gray-500">
                                             Your purchase has been verified on the blockchain. Here's your batch verification QR code:
                                         </p>
                                     </div>
                                     <div class="mt-4">
-                                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <div class="bg-gray-50 p-4 rounded-lg">
                                             <div id="qrCodeContainer" class="text-center">
                                                 <!-- QR Code will be generated here -->
                                                 <div class="animate-pulse">
-                                                    <div class="h-48 w-48 bg-gray-300 dark:bg-gray-600 rounded mx-auto"></div>
+                                                    <div class="h-48 w-48 bg-gray-300 rounded mx-auto"></div>
                                                     <p class="mt-2 text-sm text-gray-500">Generating QR Code...</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                                        <div class="mt-3 text-sm text-gray-600">
                                             <p><strong>Batch ID:</strong> <span id="batchId">${data.batch_id}</span></p>
                                             <p class="mt-1">Keep this QR code as proof of your authentic LeafChain purchase.</p>
                                         </div>
@@ -988,7 +988,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <a href="${data.verification_url}"
                                target="_blank"
                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -996,7 +996,7 @@
                             </a>
                             <button type="button"
                                     onclick="this.closest('.fixed').remove()"
-                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
                             </button>
                         </div>
@@ -1042,14 +1042,14 @@
                     // Add download button
                     const downloadBtn = document.createElement('a');
                     downloadBtn.href = data.verification_url + '/download';
-                    downloadBtn.className = 'mt-3 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:text-blue-300 dark:bg-blue-900 dark:hover:bg-blue-800';
+                    downloadBtn.className = 'mt-3 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200:bg-blue-800';
                     downloadBtn.innerHTML = 'Download QR Code';
                     qrContainer.appendChild(downloadBtn);
                 } else {
                     // Fallback if QRCode library not loaded
                     document.getElementById('qrCodeContainer').innerHTML = `
                         <div class="text-center p-4">
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">QR Code Generated Successfully!</p>
+                            <p class="text-sm text-gray-600 mb-2">QR Code Generated Successfully!</p>
                             <p class="text-xs text-gray-500">Visit the verification page to see your QR code.</p>
                             <a href="${data.verification_url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Verification Page →</a>
                         </div>
@@ -1059,7 +1059,7 @@
                 console.error('QR code generation failed:', error);
                 document.getElementById('qrCodeContainer').innerHTML = `
                     <div class="text-center p-4">
-                        <p class="text-sm text-red-600 dark:text-red-400">QR Code generation failed</p>
+                        <p class="text-sm text-red-600">QR Code generation failed</p>
                         <p class="text-xs text-gray-500">But your purchase was successful!</p>
                         <a href="${data.verification_url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Verification Page →</a>
                     </div>

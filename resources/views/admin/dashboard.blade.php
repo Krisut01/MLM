@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Admin Dashboard
         </h2>
     </x-slot>
@@ -14,22 +14,22 @@
             @endif
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6">
                     <div class="text-sm text-gray-500">Users</div>
-                    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ number_format($stats['users']) }}</div>
+                    <div class="text-3xl font-bold text-gray-900">{{ number_format($stats['users']) }}</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6">
                     <div class="text-sm text-gray-500">Transactions</div>
-                    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ number_format($stats['transactions']) }}</div>
+                    <div class="text-3xl font-bold text-gray-900">{{ number_format($stats['transactions']) }}</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+                <div class="bg-white rounded-xl shadow p-6">
                     <div class="text-sm text-gray-500">Completed Volume</div>
-                    <div class="text-3xl font-bold text-gray-900 dark:text-white">${{ number_format($stats['earnings'], 2) }}</div>
+                    <div class="text-3xl font-bold text-gray-900">${{ number_format($stats['earnings'], 2) }}</div>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
+            <div class="bg-white rounded-xl shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
                 <div class="flex flex-wrap gap-3">
                     <a href="{{ route('admin.landing') }}" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Edit Landing Page</a>
                     <a href="{{ route('admin.testimonials') }}" class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700">Manage Testimonials</a>

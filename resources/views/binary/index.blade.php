@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Binary Tree Network') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {{-- Network Overview Header --}}
@@ -30,69 +30,69 @@
 
             {{-- Network Statistics Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
                     <div class="p-6">
                         <div class="flex items-center">
-                            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
-                                <svg class="w-8 h-8 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="p-3 rounded-full bg-blue-100">
+                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
                             </div>
                             <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Network</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['total_downlines'] }}</p>
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">All levels</p>
+                                <p class="text-sm font-medium text-gray-500">Total Network</p>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $stats['total_downlines'] }}</p>
+                                <p class="text-xs text-gray-400 mt-1">All levels</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
                     <div class="p-6">
                         <div class="flex items-center">
-                            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900">
-                                <svg class="w-8 h-8 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="p-3 rounded-full bg-green-100">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </div>
                             <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Members</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['active_downlines'] }}</p>
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">With packages</p>
+                                <p class="text-sm font-medium text-gray-500">Active Members</p>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $stats['active_downlines'] }}</p>
+                                <p class="text-xs text-gray-400 mt-1">With packages</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
                     <div class="p-6">
                         <div class="flex items-center">
-                            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
-                                <svg class="w-8 h-8 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="p-3 rounded-full bg-purple-100">
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
                                 </svg>
                             </div>
                             <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Left Volume</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['left_volume'] }}</p>
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Points</p>
+                                <p class="text-sm font-medium text-gray-500">Left Volume</p>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $stats['left_volume'] }}</p>
+                                <p class="text-xs text-gray-400 mt-1">Points</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
                     <div class="p-6">
                         <div class="flex items-center">
-                            <div class="p-3 rounded-full bg-orange-100 dark:bg-orange-900">
-                                <svg class="w-8 h-8 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="p-3 rounded-full bg-orange-100">
+                                <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
                                 </svg>
                             </div>
                             <div class="ml-4">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Right Volume</p>
-                                <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $stats['right_volume'] }}</p>
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Points</p>
+                                <p class="text-sm font-medium text-gray-500">Right Volume</p>
+                                <p class="text-2xl font-semibold text-gray-900">{{ $stats['right_volume'] }}</p>
+                                <p class="text-xs text-gray-400 mt-1">Points</p>
                             </div>
                         </div>
                     </div>
@@ -100,10 +100,10 @@
             </div>
 
             {{-- Binary Tree Visualization --}}
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 flex items-center">
+                        <h3 class="text-lg font-medium text-gray-900 flex items-center">
                             <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                             </svg>
@@ -112,44 +112,44 @@
                         <div class="flex space-x-4 text-xs">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
-                                <span class="text-gray-600 dark:text-gray-400">You</span>
+                                <span class="text-gray-600">You</span>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
-                                <span class="text-gray-600 dark:text-gray-400">Active</span>
+                                <span class="text-gray-600">Active</span>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-gray-400 mr-1"></div>
-                                <span class="text-gray-600 dark:text-gray-400">Inactive</span>
+                                <span class="text-gray-600">Inactive</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 md:p-6">
+                    <div class="bg-gray-50 rounded-lg p-4 md:p-6">
                         <!-- Tree Controls -->
                         <div class="flex flex-wrap items-center justify-between mb-4 gap-4">
                             <div class="flex items-center space-x-4">
-                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                <div class="text-sm text-gray-600">
                                     <span class="font-medium">Depth:</span> Limited to 4 levels for performance
                                 </div>
-                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                <div class="text-sm text-gray-600">
                                     <span class="font-medium">Max nodes/level:</span> 50 for optimal display
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <button id="zoom-in" class="px-3 py-1 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-300 rounded text-sm font-medium transition-colors">
+                                <button id="zoom-in" class="px-3 py-1 bg-blue-100 hover:bg-blue-200:bg-blue-800 text-blue-700 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m-3-3h3m3 0h-3m-3-3h3"/>
                                     </svg>
                                     Zoom In
                                 </button>
-                                <button id="zoom-out" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm font-medium transition-colors">
+                                <button id="zoom-out" class="px-3 py-1 bg-gray-100 hover:bg-gray-200:bg-gray-700 text-gray-700 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"/>
                                     </svg>
                                     Zoom Out
                                 </button>
-                                <button id="fit-view" class="px-3 py-1 bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800 text-green-700 dark:text-green-300 rounded text-sm font-medium transition-colors">
+                                <button id="fit-view" class="px-3 py-1 bg-green-100 hover:bg-green-200:bg-green-800 text-green-700 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5"/>
                                     </svg>
@@ -159,7 +159,7 @@
                         </div>
 
                         <!-- Tree Container with improved responsiveness -->
-                        <div class="relative overflow-auto bg-white dark:bg-gray-800 rounded-lg shadow-inner">
+                        <div class="relative overflow-auto bg-white rounded-lg shadow-inner">
                             <div id="tree-container" class="min-h-[400px] p-4 transition-transform duration-300 ease-in-out"
                                  style="transform-origin: center top;">
                                 @if($treeData)
@@ -167,7 +167,7 @@
                                         {!! renderTreeNode($treeData) !!}
                                     </div>
                                 @else
-                                    <div class="text-center text-gray-500 dark:text-gray-400 py-12">
+                                    <div class="text-center text-gray-500 py-12">
                                         <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                         </svg>
@@ -180,14 +180,14 @@
 
                         <!-- Performance Notice -->
                         @if($stats['total_downlines'] > 100)
-                        <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                        <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                             <div class="flex items-start">
-                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
-                                <div class="text-sm text-blue-800 dark:text-blue-200">
-                                    <p class="font-medium text-blue-900 dark:text-blue-100">Large Network Detected</p>
-                                    <p class="mt-1 text-blue-700 dark:text-blue-300">Your network has {{ $stats['total_downlines'] }} members. For optimal performance, the tree view is limited to 4 levels and 50 nodes per level. Use the zoom controls to navigate your tree effectively.</p>
+                                <div class="text-sm text-blue-800">
+                                    <p class="font-medium text-blue-900">Large Network Detected</p>
+                                    <p class="mt-1 text-blue-700">Your network has {{ $stats['total_downlines'] }} members. For optimal performance, the tree view is limited to 4 levels and 50 nodes per level. Use the zoom controls to navigate your tree effectively.</p>
                                 </div>
                             </div>
                         </div>
@@ -197,9 +197,9 @@
             </div>
 
             {{-- Direct Downlines Table --}}
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                         <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
@@ -208,36 +208,36 @@
                     
                     @if($directDownlines->count() > 0)
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                <thead class="bg-gray-50 dark:bg-gray-700">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Position</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Package</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Joined</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Package</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($directDownlines as $downline)
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    <tr class="hover:bg-gray-50:bg-gray-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ $downline->name }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $downline->email }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             @if($downline->binaryTree)
-                                                <span class="px-2 py-1 text-xs font-medium rounded {{ $downline->binaryTree->position === 'left' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' : 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' }}">
+                                                <span class="px-2 py-1 text-xs font-medium rounded {{ $downline->binaryTree->position === 'left' ? 'bg-purple-100 text-purple-800' : 'bg-orange-100 text-orange-800' }}">
                                                     {{ ucfirst($downline->binaryTree->position) }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400 dark:text-gray-500">Not Set</span>
+                                                <span class="text-gray-400">Not Set</span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 font-medium">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                                             @if($downline->farmingLogs->where('status', 'active')->first())
                                                 ${{ number_format($downline->farmingLogs->where('status', 'active')->first()->package_value, 2) }}
                                             @else
@@ -255,7 +255,7 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $downline->created_at->format('M d, Y') }}
                                         </td>
                                     </tr>
@@ -268,7 +268,7 @@
                             <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                             </svg>
-                            <p class="text-gray-500 dark:text-gray-400 font-medium">No direct referrals yet</p>
+                            <p class="text-gray-500 font-medium">No direct referrals yet</p>
                             <p class="text-sm text-gray-400 mt-1">Share your referral link to grow your network!</p>
                         </div>
                     @endif
@@ -634,7 +634,7 @@
 @php
 function renderTreeNode($node, $isCurrentUser = true) {
     if (!$node) {
-        return '<div class="tree-node"><div class="tree-node-card inactive"><p class="text-xs text-gray-400 dark:text-gray-500">Empty Slot</p><p class="text-xs text-gray-300 dark:text-gray-600 mt-1">Available</p></div></div>';
+        return '<div class="tree-node"><div class="tree-node-card inactive"><p class="text-xs text-gray-400">Empty Slot</p><p class="text-xs text-gray-300 mt-1">Available</p></div></div>';
     }
 
     // Handle group nodes (when there are too many children)
@@ -642,11 +642,11 @@ function renderTreeNode($node, $isCurrentUser = true) {
         $html = '<div class="tree-node">';
         $html .= '<div class="tree-node-card group-node" style="border-color: #8b5cf6; background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);">';
         $html .= '<div class="mb-2"><span class="tree-badge" style="background: #8b5cf6; color: white;">GROUP</span></div>';
-        $html .= '<p class="font-bold text-base text-gray-900 dark:text-gray-100">' . e($node['name']) . '</p>';
-        $html .= '<p class="text-xs text-purple-600 dark:text-purple-400 mt-1">Click to expand</p>';
-        $html .= '<div class="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800">';
-        $html .= '<p class="text-sm font-bold text-purple-700 dark:text-purple-300">' . $node['group_count'] . ' members</p>';
-        $html .= '<p class="text-xs text-purple-600 dark:text-purple-400">Too many to display</p>';
+        $html .= '<p class="font-bold text-base text-gray-900">' . e($node['name']) . '</p>';
+        $html .= '<p class="text-xs text-purple-600 mt-1">Click to expand</p>';
+        $html .= '<div class="mt-3 pt-3 border-t border-purple-200">';
+        $html .= '<p class="text-sm font-bold text-purple-700">' . $node['group_count'] . ' members</p>';
+        $html .= '<p class="text-xs text-purple-600">Too many to display</p>';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
@@ -680,18 +680,18 @@ function renderTreeNode($node, $isCurrentUser = true) {
 
     // Name and ID (truncate long names)
     $name = strlen($node['name']) > 15 ? substr($node['name'], 0, 12) . '...' : $node['name'];
-    $html .= '<p class="font-bold text-sm text-gray-900 dark:text-gray-100" title="' . e($node['name']) . '">' . e($name) . '</p>';
-    $html .= '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">ID: ' . $node['id'] . '</p>';
+    $html .= '<p class="font-bold text-sm text-gray-900" title="' . e($node['name']) . '">' . e($name) . '</p>';
+    $html .= '<p class="text-xs text-gray-500 mt-1">ID: ' . $node['id'] . '</p>';
 
     // Package info
     if ($hasPackage && $node['package_value'] > 0) {
-        $html .= '<div class="mt-3 pt-3 border-t border-green-200 dark:border-green-800">';
-        $html .= '<p class="text-sm font-bold text-green-700 dark:text-green-300">$' . number_format($node['package_value'], 0) . '</p>';
-        $html .= '<p class="text-xs text-green-600 dark:text-green-400">Package</p>';
+        $html .= '<div class="mt-3 pt-3 border-t border-green-200">';
+        $html .= '<p class="text-sm font-bold text-green-700">$' . number_format($node['package_value'], 0) . '</p>';
+        $html .= '<p class="text-xs text-green-600">Package</p>';
         $html .= '</div>';
     } else {
-        $html .= '<div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">';
-        $html .= '<p class="text-xs text-gray-400 dark:text-gray-500">No Package</p>';
+        $html .= '<div class="mt-3 pt-3 border-t border-gray-200">';
+        $html .= '<p class="text-xs text-gray-400">No Package</p>';
         $html .= '</div>';
     }
 
@@ -700,12 +700,12 @@ function renderTreeNode($node, $isCurrentUser = true) {
         $html .= '<div class="mt-2 flex justify-center space-x-2 text-xs font-medium">';
         if ($node['left_volume'] > 0) {
             $html .= '<div class="flex items-center">';
-            $html .= '<span class="text-purple-600 dark:text-purple-400 font-bold">L:' . number_format($node['left_volume']) . '</span>';
+            $html .= '<span class="text-purple-600 font-bold">L:' . number_format($node['left_volume']) . '</span>';
             $html .= '</div>';
         }
         if ($node['right_volume'] > 0) {
             $html .= '<div class="flex items-center ml-2">';
-            $html .= '<span class="text-orange-600 dark:text-orange-400 font-bold">R:' . number_format($node['right_volume']) . '</span>';
+            $html .= '<span class="text-orange-600 font-bold">R:' . number_format($node['right_volume']) . '</span>';
             $html .= '</div>';
         }
         $html .= '</div>';
@@ -729,8 +729,8 @@ function renderTreeNode($node, $isCurrentUser = true) {
         // Show expansion indicator for deeper levels
         $html .= '<div class="tree-children">';
         $html .= '<div class="tree-node"><div class="tree-node-card" style="border-color: #6b7280; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);">';
-        $html .= '<p class="text-xs text-gray-500 dark:text-gray-400">More levels available</p>';
-        $html .= '<p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Limited for performance</p>';
+        $html .= '<p class="text-xs text-gray-500">More levels available</p>';
+        $html .= '<p class="text-xs text-gray-400 mt-1">Limited for performance</p>';
         $html .= '</div></div>';
         $html .= '</div>';
     }
