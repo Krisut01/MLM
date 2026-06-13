@@ -2,22 +2,22 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-bold text-3xl text-gray-900 tracking-tight">
+                <h2 class="font-bold text-3xl text-gray-900 dark:text-white tracking-tight">
                     {{ $package->name }} Package
                 </h2>
-                <p class="mt-2 text-gray-600">
+                <p class="mt-2 text-gray-600 dark:text-gray-400">
                     Complete investment package with binary compensation and farming rewards
                 </p>
             </div>
             <div class="flex items-center space-x-4">
                 <a href="{{ route('packages') }}"
-                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50:bg-gray-700 transition-colors duration-200">
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     Back to Packages
                 </a>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200">
                     <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
@@ -27,7 +27,7 @@
         </div>
     </x-slot>
 
-    <div class="py-8">
+    <div class="lc-page lc-polish py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Package Hero Section -->
@@ -98,7 +98,7 @@
                 <div class="lg:col-span-2 space-y-8">
 
                     <!-- Key Features -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -186,7 +186,7 @@
                     </div>
 
                     <!-- Technical Specifications -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -996,7 +996,7 @@
                             </a>
                             <button type="button"
                                     onclick="this.closest('.fixed').remove()"
-                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                     class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white dark:bg-gray-900 text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                 Close
                             </button>
                         </div>
@@ -1042,7 +1042,7 @@
                     // Add download button
                     const downloadBtn = document.createElement('a');
                     downloadBtn.href = data.verification_url + '/download';
-                    downloadBtn.className = 'mt-3 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200:bg-blue-800';
+                    downloadBtn.className = 'mt-3 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:text-blue-200 dark:bg-blue-950/50 dark:hover:bg-blue-900';
                     downloadBtn.innerHTML = 'Download QR Code';
                     qrContainer.appendChild(downloadBtn);
                 } else {

@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
             {{ __('Binary Tree Network') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-50">
+    <div class="lc-page lc-polish py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {{-- Network Overview Header --}}
@@ -30,7 +30,7 @@
 
             {{-- Network Statistics Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg border border-gray-200">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="p-3 rounded-full bg-blue-100">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg border border-gray-200">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="p-3 rounded-full bg-green-100">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg border border-gray-200">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="p-3 rounded-full bg-purple-100">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg transition-all hover:shadow-lg border border-gray-200">
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="p-3 rounded-full bg-orange-100">
@@ -100,7 +100,7 @@
             </div>
 
             {{-- Binary Tree Visualization --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 border border-gray-200">
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-medium text-gray-900 flex items-center">
@@ -137,19 +137,19 @@
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <button id="zoom-in" class="px-3 py-1 bg-blue-100 hover:bg-blue-200:bg-blue-800 text-blue-700 rounded text-sm font-medium transition-colors">
+                                <button id="zoom-in" class="px-3 py-1 bg-blue-100 hover:bg-blue-200 dark:bg-blue-950/50 dark:hover:bg-blue-900 text-blue-700 dark:text-blue-200 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m-3-3h3m3 0h-3m-3-3h3"/>
                                     </svg>
                                     Zoom In
                                 </button>
-                                <button id="zoom-out" class="px-3 py-1 bg-gray-100 hover:bg-gray-200:bg-gray-700 text-gray-700 rounded text-sm font-medium transition-colors">
+                                <button id="zoom-out" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"/>
                                     </svg>
                                     Zoom Out
                                 </button>
-                                <button id="fit-view" class="px-3 py-1 bg-green-100 hover:bg-green-200:bg-green-800 text-green-700 rounded text-sm font-medium transition-colors">
+                                <button id="fit-view" class="px-3 py-1 bg-green-100 hover:bg-green-200 dark:bg-green-950/50 dark:hover:bg-green-900 text-green-700 dark:text-green-200 rounded text-sm font-medium transition-colors">
                                     <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5"/>
                                     </svg>
@@ -159,7 +159,7 @@
                         </div>
 
                         <!-- Tree Container with improved responsiveness -->
-                        <div class="relative overflow-auto bg-white rounded-lg shadow-inner">
+                        <div class="relative overflow-auto bg-white rounded-lg shadow-inner border border-gray-200">
                             <div id="tree-container" class="min-h-[400px] p-4 transition-transform duration-300 ease-in-out"
                                  style="transform-origin: center top;">
                                 @if($treeData)
@@ -197,7 +197,7 @@
             </div>
 
             {{-- Direct Downlines Table --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6">
                     <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                         <svg class="w-6 h-6 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +221,7 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($directDownlines as $downline)
-                                    <tr class="hover:bg-gray-50:bg-gray-700 transition-colors">
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ $downline->name }}
                                         </td>
@@ -498,6 +498,35 @@
             cursor: pointer;
         }
 
+        .dark {
+            --tree-connector: #374151;
+        }
+
+        .dark .tree-children::before,
+        .dark .tree-children > .tree-node:not(:last-child)::after,
+        .dark .tree-node-card::before {
+            background: #374151;
+        }
+
+        .dark .tree-node-card {
+            color: #f9fafb;
+        }
+
+        .dark .tree-node-card .text-gray-900 {
+            color: #f9fafb;
+        }
+
+        .dark .tree-node-card .text-gray-500,
+        .dark .tree-node-card .text-gray-400 {
+            color: #9ca3af;
+        }
+
+        .dark .tree-node-card .border-gray-200,
+        .dark .tree-node-card .border-green-200,
+        .dark .tree-node-card .border-purple-200 {
+            border-color: #374151;
+        }
+
         @media (prefers-color-scheme: dark) {
             .tree-node-card {
                 background: #1f2937;
@@ -522,6 +551,30 @@
                 background: linear-gradient(135deg, #2d1b69 0%, #1e1b4b 100%);
                 border-color: #8b5cf6;
             }
+        }
+
+        .dark .tree-node-card {
+            background: #1f2937;
+            border-color: #374151;
+        }
+
+        .dark .tree-node-card.active {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+            border-color: #10b981;
+        }
+
+        .dark .tree-node-card.inactive {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+
+        .dark .tree-node-card.current-user {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border-color: #3b82f6;
+        }
+
+        .dark .tree-node-card.group-node {
+            background: linear-gradient(135deg, #2d1b69 0%, #1e1b4b 100%);
+            border-color: #8b5cf6;
         }
 
         .tree-badge {

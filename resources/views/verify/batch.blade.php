@@ -100,7 +100,7 @@
                                 </div>
                                 <a href="https://mumbai.polygonscan.com/tx/{{ $verification['transactionHash'] }}"
                                    target="_blank"
-                                   class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:text-blue-200 dark:bg-blue-950/50 dark:hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                     View on PolygonScan
                                     <svg class="ml-1 -mr-0.5 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 001.414-1.414L12 2.586 4.707 9.293a1 1 0 00-1.414 1.414l8 8a1 1 0 010 1.414l-8-8z" clip-rule="evenodd"/>

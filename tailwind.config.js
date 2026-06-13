@@ -11,7 +11,7 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
-    darkMode: false,
+    darkMode: 'class',
 
     theme: {
         extend: {
