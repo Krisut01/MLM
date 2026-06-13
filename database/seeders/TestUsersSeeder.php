@@ -20,11 +20,7 @@ class TestUsersSeeder extends Seeder
      *
      * Creates a realistic MLM network with users and package purchases:
      * - Root User (ID: 1) - Network founder, earns from referrals
-     * - User A (ID: 2) - Buys $50 Starter, earns $2.50 referral from D&E
-     * - User B (ID: 3) - Buys $100 Bronze, creates pairing bonus for Root
-     * - User C (ID: 4) - Registered but hasn't bought yet
-     * - User D (ID: 5) - Buys $50 Starter under User A
-     * - User E (ID: 6) - Registered but hasn't bought yet
+     * - Users A-Z (ID: 2-27) - All sponsored by Root to test binary tree structure
      */
     public function run(): void
     {
@@ -42,6 +38,7 @@ class TestUsersSeeder extends Seeder
         // Get packages
         $starterPackage = Package::where('name', 'Starter')->first();  // $50, 1 point
         $bronzePackage = Package::where('name', 'Bronze')->first();   // $100, 2 points
+        $goldPackage = Package::where('name', 'Gold')->first();       // $320, 10 points
 
         // Create Root User (No Sponsor)
         $root = User::create([
@@ -57,102 +54,42 @@ class TestUsersSeeder extends Seeder
 
         $this->command->info("✅ Created Root User (ID: {$root->id})");
 
-        // Create User A (Sponsored by Root) - Will buy Starter package
-        $userA = User::create([
-            'name' => 'User A',
-            'email' => 'usera@leafchain.test',
-            'password' => Hash::make('password'),
-            'sponsor_id' => $root->id,
-            'wallet_address' => '0x1234567890abcdef1234567890abcdef12345678',
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        $this->command->info("✅ Created User A (ID: {$userA->id}, Sponsor: Root)");
-
-        // Create User B (Sponsored by Root) - Will buy Bronze package
-        $userB = User::create([
-            'name' => 'User B',
-            'email' => 'userb@leafchain.test',
-            'password' => Hash::make('password'),
-            'sponsor_id' => $root->id,
-            'wallet_address' => '0xabcdef1234567890abcdef1234567890abcdef12',
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        $this->command->info("✅ Created User B (ID: {$userB->id}, Sponsor: Root)");
-
-        // Create User C (Sponsored by Root) - Just registered, no purchase
-        $userC = User::create([
-            'name' => 'User C',
-            'email' => 'userc@leafchain.test',
-            'password' => Hash::make('password'),
-            'sponsor_id' => $root->id,
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        $this->command->info("✅ Created User C (ID: {$userC->id}, Sponsor: Root)");
-
-        // Create User D (Sponsored by User A) - Will buy Starter package
-        $userD = User::create([
-            'name' => 'User D',
-            'email' => 'userd@leafchain.test',
-            'password' => Hash::make('password'),
-            'sponsor_id' => $userA->id,
-            'wallet_address' => '0x1111111111111111111111111111111111111111',
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        $this->command->info("✅ Created User D (ID: {$userD->id}, Sponsor: User A)");
-
-        // Create User E (Sponsored by User A) - Just registered, no purchase
-        $userE = User::create([
-            'name' => 'User E',
-            'email' => 'usere@leafchain.test',
-            'password' => Hash::make('password'),
-            'sponsor_id' => $userA->id,
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
-
-        $this->command->info("✅ Created User E (ID: {$userE->id}, Sponsor: User A)");
-
-        // ========================================
-        // SIMULATE PACKAGE PURCHASES
-        // ========================================
-
-        $this->command->info("\n🛒 Simulating Package Purchases...");
-
-        // 0. Root buys Gold Package ($320) - needed for pairing bonuses
-        $goldPackage = Package::where('name', 'Gold')->first(); // $320, 10 points, $21 pairing bonus
+        // Purchase Gold package for Root first
         $this->simulatePackagePurchase($root, $goldPackage, $binaryService, $commissionService);
-        $this->command->info("✅ Root purchased Gold Package ($320) - enables pairing bonuses");
+        $this->command->info("✅ Root purchased Gold Package ($320)");
 
-        // 1. User A buys Starter Package ($50)
-        $this->simulatePackagePurchase($userA, $starterPackage, $binaryService, $commissionService);
-        $this->command->info("✅ User A purchased Starter Package ($50)");
+        // Create Users A-Z (all sponsored by Root)
+        $users = [];
+        $letters = range('A', 'Z');
+        $packages = [$starterPackage, $bronzePackage, $goldPackage];
+        
+        foreach ($letters as $index => $letter) {
+            $user = User::create([
+                'name' => "User {$letter}",
+                'email' => "user{$letter}@leafchain.test",
+                'password' => Hash::make('password'),
+                'sponsor_id' => $root->id,
+                'wallet_address' => '0x' . str_pad(dechex($index + 100), 40, '0', STR_PAD_LEFT),
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]);
 
-        // 2. User B buys Bronze Package ($100)
-        $this->simulatePackagePurchase($userB, $bronzePackage, $binaryService, $commissionService);
-        $this->command->info("✅ User B purchased Bronze Package ($100)");
+            $users[$letter] = $user;
+            $this->command->info("✅ Created User {$letter} (ID: {$user->id}, Sponsor: Root)");
 
-        // 3. User D buys Starter Package ($50)
-        $this->simulatePackagePurchase($userD, $starterPackage, $binaryService, $commissionService);
-        $this->command->info("✅ User D purchased Starter Package ($50)");
+            // Each user purchases a package (rotating between packages)
+            $package = $packages[$index % 3];
+            $this->simulatePackagePurchase($user, $package, $binaryService, $commissionService);
+            $this->command->info("   └─ Purchased {$package->name} Package (\${$package->price})");
+        }
 
         // ========================================
         // DISPLAY RESULTS
         // ========================================
 
-        $this->command->info("\n📊 Final Network Structure:");
-        $this->command->info("       Root (1)");
-        $this->command->info("      /   |   \\");
-        $this->command->info("   A(2) B(3) C(4)");
-        $this->command->info("   / \\");
-        $this->command->info(" D(5) E(6)");
+        $this->command->info("\n📊 Network Structure Created:");
+        $this->command->info("Root User with 26 direct referrals (Users A-Z)");
+        $this->command->info("All users purchased packages and placed in binary tree");
         $this->command->info("");
 
         $this->displayEarningsSummary();

@@ -36,7 +36,7 @@ class BinaryController extends Controller
     /**
      * Build hierarchical tree data for visualization with performance optimizations
      */
-    private function buildTreeData($userId, $depth = 0, $maxDepth = 4, $maxNodesPerLevel = 50)
+    private function buildTreeData($userId, $depth = 0, $maxDepth = 10, $maxNodesPerLevel = 100)
     {
         if ($depth >= $maxDepth) {
             return null;

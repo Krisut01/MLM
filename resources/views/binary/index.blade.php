@@ -130,10 +130,10 @@
                         <div class="flex flex-wrap items-center justify-between mb-4 gap-4">
                             <div class="flex items-center space-x-4">
                                 <div class="text-sm text-gray-600">
-                                    <span class="font-medium">Depth:</span> Limited to 4 levels for performance
+                                    <span class="font-medium">Depth:</span> Limited to 10 levels for performance
                                 </div>
                                 <div class="text-sm text-gray-600">
-                                    <span class="font-medium">Max nodes/level:</span> 50 for optimal display
+                                    <span class="font-medium">Max nodes/level:</span> 100 for optimal display
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
@@ -187,7 +187,7 @@
                                 </svg>
                                 <div class="text-sm text-blue-800">
                                     <p class="font-medium text-blue-900">Large Network Detected</p>
-                                    <p class="mt-1 text-blue-700">Your network has {{ $stats['total_downlines'] }} members. For optimal performance, the tree view is limited to 4 levels and 50 nodes per level. Use the zoom controls to navigate your tree effectively.</p>
+                                    <p class="mt-1 text-blue-700">Your network has {{ $stats['total_downlines'] }} members. For optimal performance, the tree view is limited to 10 levels and 100 nodes per level. Use the zoom controls to navigate your tree effectively.</p>
                                 </div>
                             </div>
                         </div>
@@ -725,8 +725,8 @@ function renderTreeNode($node, $isCurrentUser = true) {
         $html .= renderTreeNode($node['right'] ?? null, false);
 
         $html .= '</div>';
-    } elseif ($hasChildren && $node['depth'] >= 3) {
-        // Show expansion indicator for deeper levels
+    } elseif ($hasChildren && $node['depth'] >= 10) {
+        // Show expansion indicator for deeper levels (only after 10 levels)
         $html .= '<div class="tree-children">';
         $html .= '<div class="tree-node"><div class="tree-node-card" style="border-color: #6b7280; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);">';
         $html .= '<p class="text-xs text-gray-500">More levels available</p>';
