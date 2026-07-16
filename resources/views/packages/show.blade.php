@@ -261,7 +261,7 @@
 
                     <!-- Product Inclusions -->
                     @if($package->products->count() > 0)
-                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-emerald-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
@@ -269,7 +269,7 @@
                             🌿 Included Flower Tea Products
                         </h3>
 
-                        <div class="mb-6 p-4 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-200">
+                        <div class="mb-6 p-4 bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-950/50 dark:to-blue-950/50 rounded-xl border border-emerald-200 dark:border-emerald-800/70">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="text-sm text-gray-600 mb-1">Total Included Products</div>
@@ -281,8 +281,8 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($package->products as $product)
-                            <div class="flex items-start p-4 bg-gray-50 rounded-xl border border-gray-200">
-                                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 rounded-lg overflow-hidden mr-4">
+                            <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-950/50 rounded-xl border border-gray-200 dark:border-gray-800">
+                                <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-emerald-100 to-blue-100 dark:from-emerald-900/60 dark:to-blue-900/60 rounded-lg overflow-hidden mr-4">
                                     <img src="{{ $product->image_url }}" 
                                          alt="{{ $product->name }}" 
                                          class="w-full h-full object-cover">
@@ -292,7 +292,7 @@
                                         <h4 class="font-semibold text-gray-900 text-sm line-clamp-1">
                                             {{ $product->name }}
                                         </h4>
-                                        <span class="ml-2 px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full flex-shrink-0">
+                                         <span class="ml-2 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/70 text-emerald-700 dark:text-emerald-200 text-xs font-bold rounded-full flex-shrink-0">
                                             {{ $product->pivot->quantity }}x
                                         </span>
                                     </div>
@@ -307,12 +307,12 @@
                             @endforeach
                         </div>
 
-                        <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-200 dark:border-blue-900/70">
                             <div class="flex items-start">
                                 <svg class="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                 </svg>
-                                <div class="text-sm text-gray-700">
+                                <div class="text-sm text-gray-700 dark:text-blue-100">
                                     <strong>Note:</strong> All flower tea products are 100% organic and come with blockchain provenance tracking via QR code. Each product includes health benefits and is bundled with your package purchase.
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                     @endif
 
                     <!-- Earnings Projection -->
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 border border-blue-200">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/45 dark:to-indigo-950/45 rounded-2xl p-8 border border-blue-200 dark:border-blue-900/70">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                             <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -344,8 +344,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/50 rounded-xl p-6">
-                            <div class="text-sm text-gray-700 mb-4">
+                        <div class="bg-white/60 dark:bg-gray-950/45 rounded-xl p-6 border border-white/60 dark:border-gray-800">
+                            <div class="text-sm text-gray-700 dark:text-gray-200 mb-4">
                                 <strong>Note:</strong> Projections are estimates. Actual earnings depend on binary matching efficiency, leadership bonuses, and market conditions. All farming rewards are guaranteed up to the 3X maximum ROI cap.
                             </div>
 
@@ -363,7 +363,7 @@
                 <div class="space-y-6">
 
                     <!-- Purchase Card -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-8 border border-gray-200">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Secure Purchase</h3>
 
                         <!-- Price Display -->
@@ -375,7 +375,7 @@
                         </div>
 
                         <!-- Payment Method -->
-                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mb-6">
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/45 dark:to-sky-950/45 rounded-xl p-6 mb-6 border border-blue-100 dark:border-blue-900/60">
                             <div class="flex items-center justify-center mb-4">
                                 <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" class="w-8 h-8 mr-3">
                                 <div class="text-center">
@@ -390,14 +390,14 @@
                         </div>
 
                         <!-- Status Alert -->
-                        <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+                        <div class="bg-green-50 dark:bg-emerald-950/40 border border-green-200 dark:border-emerald-900/70 rounded-xl p-4 mb-6">
                             <div class="flex items-start">
                                 <svg class="w-5 h-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
                                 <div>
-                                    <h4 class="text-sm font-medium text-green-800">Payment System Active</h4>
-                                    <p class="text-sm text-green-700 mt-1">
+                                    <h4 class="text-sm font-medium text-green-800 dark:text-emerald-200">Payment System Active</h4>
+                                    <p class="text-sm text-green-700 dark:text-emerald-100 mt-1">
                                         Secure blockchain payment integration is now active. Connect your MetaMask wallet to proceed with the purchase.
                                     </p>
                                 </div>
@@ -457,7 +457,7 @@
                                 </svg>
                                 <span>Simulate Purchase (Dev)</span>
                             </button>
-                            <p class="text-xs text-purple-600/90 -mt-2 mb-4 text-center">
+                            <p class="text-xs text-purple-600/90 dark:text-purple-300 -mt-2 mb-4 text-center">
                                 Dev mode enabled: no real USDT is required. This will still create transactions, activate farming, and process commissions.
                             </p>
                         @endif
@@ -474,7 +474,7 @@
                     </div>
 
                     <!-- Support Card -->
-                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 text-center">
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-800">
                         <svg class="w-12 h-12 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"/>
                         </svg>
@@ -482,7 +482,7 @@
                         <p class="text-sm text-gray-600 mb-4">
                             Our support team is here to help you get started
                         </p>
-                        <a href="mailto:support@leafchain.com" class="inline-flex items-center text-blue-600 hover:text-blue-800:text-blue-300 font-medium">
+                        <a href="mailto:support@leafchain.com" class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 font-medium">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
